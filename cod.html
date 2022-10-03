@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>2GO API Documentation</title>
+    <style>
+        .tgo_table{
+            font-size: 14px;
+        }
+
+        .tgo_table td{
+            padding : 20px;
+        }
+
+        .bg-success-light{
+            background : #9beba2;
+        }
+        .sticky-offset {
+            top: 60px;
+        }
+
+        .sticky_pad{
+            margin-top : 60px;
+        }
+
+        
+        .nav-link{
+            color : #222;
+        }
+
+
+        @media print {
+            .print_page_break {page-break-after: always;}
+            .print_page_break_before {page-break-before: always;}
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light px-5" style="background : #ec008c; height: 60px;">
+        <a class="navbar-brand" href="#">
+          <img src="./../imgs/2GOexpress.png" height="30" alt="">
+        </a>
+        <span class="text-light">v.20220516</span>
+      </nav>
+      <div class="container-fluid">
+            <div class="row">
+              
+                
+                <div class="col-12">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-12">
+
+                                        <a id="forms_api_creation"><h4>Last Mile Cashier Handover API
+                                        </h4></a>
+                                        
+                                        <div class="bg-warning rounded p-2 mt-4">
+                                            <b>Change Logs</b>
+                                            <table class="table table-bordered border-dark table-sm">
+                                                <thead>
+                                                <th>Version</th>
+                                                <th>Description</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>v.20220516</td>
+                                                        <td>Initial Document</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>v.20220916</td>
+                                                        <td>Update API</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <h5 class="mt-3">API Flow</h5>
+                                        <div class="bg-light p-2">
+                                            FarEye to OICS
+                                        </div>
+
+                                        <h5 class="mt-3">Triggers</h5>
+                                        <div class="p-2" style="background-color: #dbefff;">
+                                            Cashier recording cash and sf collection from couriers
+                                        </div>
+
+                                        <h5 class="mt-3">Endpoint URL</h5>
+                                        <div class="bg-light">
+                                            <span class="d-inline-block px-2 py-1 text-light bg-success">POST</span>
+                                            TBD
+                                        </div>
+
+                                        <h5 class="mt-5">Request Parameters</h5>
+                                        <table class="table table-hover table-bordered tgo_table ">
+                                            <thead class="bg-light">
+                                                <th style="width: 30%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 15%;">Required</th>
+                                                <th style="width: 40%;">Description</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>reference_no</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Entry reference number</td>
+                                                </tr>
+                                                <!-- <tr>
+                                                    <td>
+                                                        <kbd>cash_deposit_number</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Entry reference number</td>
+                                                </tr> -->
+                                                <tr >
+                                                    <td>
+                                                        <kbd>store_id</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Store ID</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>store_name</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Store Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>store_type</kbd>
+                                                    </td>
+                                                    <td>String(5)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Store Type <em class="small">Options : RET, AGT, HUB</em></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>store_city</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Store City Address</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>hub_code</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>Hub Code</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>dest_port</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Destination Port</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cashier_id</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Cashier ID</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cashier_name</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Cashier Name</td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td>
+                                                        <kbd>rider_id</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Delivery Rider ID</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>tracking_no</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Tracking Number / AWB Number</td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td>
+                                                        <kbd>shipper_name</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Shipper Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cnee_name</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Consignee Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>paymode</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Transaction Paymode</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cod_payment_mode</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>COD Payment Mode : cash or cheque</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cod_amount</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>COD Amount to be collected</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cod_cash_amount</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>COD Cash Collected</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cod_check_amount</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>COD Cash Collected</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cod_check_number</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>COD Check Number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cod_check_date</kbd>
+                                                    </td>
+                                                    <td>Date</td>
+                                                    <td>Optional</td>
+                                                    <td><b>Required</b> COD Check Date</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cod_check_bank_issuer</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>Optional</td>
+                                                    <td><b>Required</b> Bank Name of the issuer of check <em></td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td>
+                                                        <kbd>sf_payment_mode</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Shipping Fee Payment Mode : cash or cheque</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>sf_amount</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>Shipping Fee - Amount to be collected</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>sf_cash_amount</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>Shipping Fee Cash Amount Collected</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>sf_check_amount</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>Shipping Fee Check Amount Collected</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>sf_check_number</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Shipping Fee Check Number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>sf_check_date</kbd>
+                                                    </td>
+                                                    <td>Date</td>
+                                                    <td>Optional</td>
+                                                    <td><b>Required</b> Shipping Fee Check Date</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>sf_check_bank_issuer</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>Optional</td>
+                                                    <td><b>Required</b> Bank Name of the issuer of check <em></td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td>
+                                                        <kbd>or_number</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>Optional</td>
+                                                    <td><b>Required if paymode if Freight Collect</b> O.R. Number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>or_date</kbd>
+                                                    </td>
+                                                    <td>Date</td>
+                                                    <td>Optional</td>
+                                                    <td><b>Required if paymode if Freight Collect</b> O.R. Date</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>or_amount</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>Optional</td>
+                                                    <td><b>Required if paymode if Freight Collect</b> O.R. Amount</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>invoice_value</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>Optional</td>
+                                                    <td>Invoice Value</td>
+                                                </tr>
+                                               
+                                                <tr>
+                                                    <td>
+                                                        <kbd>date_created</kbd>
+                                                    </td>
+                                                    <td>Datetime</td>
+                                                    <td>True</td>
+                                                    <td>Timestamp of when the entry was made</td>
+                                                </tr>
+                                                <!-- <tr>
+                                                    <td>
+                                                        <kbd>deposit_date</kbd>
+                                                    </td>
+                                                    <td>Datetime <br/> <em class="small">(YYYY-MM-DD)</em></td>
+                                                    <td>True</td>
+                                                    <td>Actual Deposit Date</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>deposit_bank</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Deposit Bank</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>deposit_bank_account</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Bank Account Number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>deposit_slip_url</kbd>
+                                                    </td>
+                                                    <td>String(255)</td>
+                                                    <td>Optional</td>
+                                                    <td>Deposit Slip Image URL</td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td>
+                                                        <kbd>deposit_reference</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>Deposit Reference Number</td>
+                                                </tr> -->
+                                                
+                                            </tbody>
+                                        </table>
+                                        <div class="">
+                                        <h5 class="print_page_break_before">Sample Payload</h5>
+                                        <pre class="bg-light">                           
+                                    <code>
+        {
+            
+            "reference_no" : ""CD-84372-1650879099224",
+            "store_id" : "1001",
+            "store_name" : "Monocrete",
+            "store_type" : "2GO Owned,
+            "store_city" : "Taguig City",
+            "hub_code" : "monoh",
+            "dest_port" : "MNL",
+            "cashier_id" : "jdc_2go",
+            "cashier_name" : "John Dela Cross",
+            "rider_id" : "c4300_2go",
+            "tracking_no" : "H0512249K",
+            "shipper_name" : "ADIDAS PHILIPPINES, INC.",
+            "cnee_name" : "Maria Dela Cruz",
+            "paymode" : "CS",
+            "cod_payment_mode" : "cheque",
+            "cod_amount" : "5000",
+            "cod_cash_amount" : 0,
+            "cod_check_amount" : 5000,
+            "cod_check_number" : "98765",
+            "cod_check_date" : "2022-09-21",
+            "cod_check_bank_issuer" : "BDO",
+            "sf_payment_mode" : "cash",
+            "sf_amount" : "",
+            "sf_cash_amount" : "",
+            "sf_check_amount" : "",
+            "sf_check_number" : "",
+            "sf_check_date" : "",
+            "sf_check_bank_issuer" : "",
+            "or_number" : "",
+            "or_date" : "",
+            "or_amount" : "",
+            "invoice_value" : "",
+            "date_created" : "2022-09-23 15:30:23"
+            
+        }
+    
+
+        {
+            
+            "reference_no" : ""CD-84372-1650879099552",
+            "store_id" : "1001",
+            "store_name" : "Monocrete",
+            "store_type" : "2GO Owned,
+            "store_city" : "Taguig City",
+            "hub_code" : "monoh",
+            "dest_port" : "MNL",
+            "cashier_id" : "jdc_2go",
+            "cashier_name" : "John Dela Cross",
+            "rider_id" : "c4300_2go",
+            "tracking_no" : "H0512250K",
+            "shipper_name" : "ADIDAS PHILIPPINES, INC.",
+            "cnee_name" : "Maria Dela Cruz",
+            "paymode" : "Freight Collect",
+            "cod_payment_mode" : "",
+            "cod_amount" : "",
+            "cod_cash_amount" : 0,
+            "cod_check_amount" : 5000,
+            "cod_check_number" : "98765",
+            "cod_check_date" : "2022-09-21",
+            "cod_check_bank_issuer" : "BDO",
+            "sf_payment_mode" : "cash",
+            "sf_amount" : "",
+            "sf_cash_amount" : "",
+            "sf_check_amount" : "",
+            "sf_check_number" : "",
+            "sf_check_date" : "",
+            "sf_check_bank_issuer" : "",
+            "or_number" : "",
+            "or_date" : "",
+            "or_amount" : "",
+            "invoice_value" : "",
+            "date_created" : "2022-09-23 15:30:23"
+            
+        }
+    </code>
+                                </pre>
+                            </div>
+                                        <h5 class="mt-5 ">Response Parameters</h5>
+                                        <pre class="bg-light">
+
+    <kbd class="bg-success-light text-dark">200 Success</kbd>                                
+                                    <code>
+    {
+        "result": "ok"
+    }
+                                            </code>
+                                </pre>
+
+                                        <pre class="bg-light">
+
+    <kbd class="bg-danger">406 Error</kbd>                                
+                                    <code>
+    {
+        "result": "error",
+        "msg": "Invalid Payload"
+    }</code>
+                                </pre>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="card mb-5 print_page_break_before">
+                                    <div class="card-header">
+                                        <a id="forms_mapping"><h4>Forms Status Table</h4></a>
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                        <table class="table table-hover table-bordered tgo_table">
+                                            <thead class="bg-light">
+                                                <th style="width: 5%;">#</th>
+                                                <th style="width: 30%;">Code</th>
+                                                <th style="width: 35%;">Description</th>
+                                                <th style="width: 30%;">Remarks</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>CLD</td>
+                                                    <td>Cancelled</td>
+                                                    <td>Receipt of complete set of cancelled form</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>DEF</td>
+                                                    <td>Deferred</td>
+                                                    <td>Temporary status of form subject to approval of Controller.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>REL</td>
+                                                    <td>Released</td>
+                                                    <td>Receipt of forms by company owned stores.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>USD</td>
+                                                    <td>Used</td>
+                                                    <td>Consumed AWB.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                </div> -->
+
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            $(function(){
+                var divId;
+                $('.nav-link').click(function(){    
+                    
+                    divId = $(this).attr('href');
+                    console.log(divId);
+                    $('html, body').animate({
+                    scrollTop: $(divId).offset().top - 80
+                    }, 100);
+                });
+                
+            })
+        </script>
+</body>
+</html>

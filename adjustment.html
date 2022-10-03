@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>2GO API Documentation</title>
+    <style>
+        .tgo_table{
+            font-size: 14px;
+        }
+
+        .tgo_table td{
+            padding : 20px;
+        }
+
+        .bg-success-light{
+            background : #9beba2;
+        }
+        .sticky-offset {
+            top: 60px;
+        }
+
+        .sticky_pad{
+            margin-top : 60px;
+        }
+
+        
+        .nav-link{
+            color : #222;
+        }
+
+
+        @media print {
+            .print_page_break {page-break-after: always;}
+            .print_page_break_before {page-break-before: always;}
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light px-5" style="background : #ec008c; height: 60px;">
+        <a class="navbar-brand" href="#">
+          <img src="./../imgs/2GOexpress.png" height="30" alt="">
+        </a>
+        <span class="text-light">v.20220524</span>
+      </nav>
+      <div class="container-fluid">
+            <div class="row">
+              
+                
+                <div class="col-12">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <a id="forms_api_creation"><h4>Adjustment API
+                                        </h4></a>
+                                    </div>
+                                    <div class="card-body">
+                                        FarEye will send Adjustment API whenever a user updates shipment details in FarEeye adjustment module. Adjustment will only be allowed as long the shipment doesn't reached terminating status.
+                                        
+                                        <div class="bg-warning rounded p-2 mt-4">
+                                            <b>Change Logs</b>
+                                            <table class="table table-bordered border-dark table-sm">
+                                                <thead>
+                                                <th>Version</th>
+                                                <th>Description</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>v.20220613</td>
+                                                        <td>Initial Document</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <h5 class="mt-3">Triggers</h5>
+                                        <div class="p-2" style="background-color: #dbefff;">
+                                            Upon saving adjustment in FarEye.
+                                        </div>
+
+                                        <h5 class="mt-5">Request Parameters</h5>
+                                        <table class="table table-hover table-bordered tgo_table ">
+                                            <thead class="bg-light">
+                                                <th style="width: 30%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 15%;">Required</th>
+                                                <th style="width: 40%;">Description</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>tracking_no</kbd>
+                                                    </td>
+                                                    <td>String(50)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Unique reference number. AWB Number of shipment to be updated</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>adjustment_number</kbd>
+                                                    </td>
+                                                    <td>String(50)</td>
+                                                    <td>True</td>
+                                                    <td>FarEye generated adjustment number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>adjustment_datetime</kbd>
+                                                    </td>
+                                                    <td>Datetime</td>
+                                                    <td>True</td>
+                                                    <td>Date and time when the adjustment happened</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>adjustment_type</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td><span class="badge bg-primary">NEW</span> Type of Adjustment</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>adjustment_remarks</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td><span class="badge bg-primary">NEW</span> Adjustment remarks</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>adjustment_by</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td><span class="badge bg-success">UPDATE</span> Previously <kbd>updated_by</kbd> User who made the adjustment</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>declared_value</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>Optional</td>
+                                                    <td>Updated Declared Value</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cod_amount</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>Optional</td>
+                                                    <td>Updated COD Amount</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>service_type</kbd>
+                                                    </td>
+                                                    <td>String(50)</td>
+                                                    <td>Optional</td>
+                                                    <td>Updated Service Type</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>dest_port</kbd>
+                                                    </td>
+                                                    <td>String(10)</td>
+                                                    <td>Optional</td>
+                                                    <td>Updated Destination Port</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>dest_area_code</kbd>
+                                                    </td>
+                                                    <td>String(10)</td>
+                                                    <td>Optional</td>
+                                                    <td>Updated Destination 2GO Area Code</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table table-hover table-bordered tgo_table print_page_break_before">
+                                            <thead class="bg-light">
+                                                <th style="width: 30%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 15%;">Required</th>
+                                                <th style="width: 40%;">Description</th>
+                                            </thead>
+                                            <tbody>  
+                                                <tr>
+                                                    <td>
+                                                        <kbd>paymode</kbd>
+                                                    </td>
+                                                    <td>String(50)</td>
+                                                    <td>Optional</td>
+                                                    <td>Updated Paymode. Allowed for CC and CS only</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>dest_system</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>true</td>
+                                                    <td><span class="badge bg-primary">New</span> Destination System. "qair" or "zip"</td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                        <div class="mt-5">
+                                        <h5 class="">Sample Payload</h5>
+                                        <pre class="bg-light">                           
+                                    <code>
+        {
+            "tracking_no" : "AA000001A",
+            "adjustment_number" : "ABCD123456",
+            "adjustment_datetime" : "2022-06-10 13:44:23",
+            "adjustment_type" : "",
+            "adjustment_remarks" : "",
+            "adjustment_by" : "John Dela Cruz",
+            "declared_value" : "1500",
+            "cod_amount" : "1500",
+            "service_type" : "",
+            "dest_port" : "",
+            "dest_area_code" : "",
+            "paymode" : "",
+            "dest_system" : "qair",
+        }</code>
+                                </pre>
+                            </div>
+                                        <h5 class="mt-5">Response Parameters</h5>
+                                        <pre class="bg-light">
+    <kbd class="bg-success-light text-dark">200 Success</kbd>                                
+                                    <code>
+    {
+        "result": "ok"
+    }</code>
+                                </pre>
+
+                                        <pre class="bg-light">
+
+    <kbd class="bg-danger">406 Error</kbd>                                
+                                    <code>
+    {
+        "result": "error",
+        "msg": "Invalid Payload"
+    }</code>
+                                </pre>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="card mb-5 print_page_break_before">
+                                    <div class="card-header">
+                                        <a id="forms_mapping"><h4>Forms Status Table</h4></a>
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                        <table class="table table-hover table-bordered tgo_table">
+                                            <thead class="bg-light">
+                                                <th style="width: 5%;">#</th>
+                                                <th style="width: 30%;">Code</th>
+                                                <th style="width: 35%;">Description</th>
+                                                <th style="width: 30%;">Remarks</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>CLD</td>
+                                                    <td>Cancelled</td>
+                                                    <td>Receipt of complete set of cancelled form</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>DEF</td>
+                                                    <td>Deferred</td>
+                                                    <td>Temporary status of form subject to approval of Controller.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>REL</td>
+                                                    <td>Released</td>
+                                                    <td>Receipt of forms by company owned stores.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>USD</td>
+                                                    <td>Used</td>
+                                                    <td>Consumed AWB.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            $(function(){
+                var divId;
+                $('.nav-link').click(function(){    
+                    
+                    divId = $(this).attr('href');
+                    console.log(divId);
+                    $('html, body').animate({
+                    scrollTop: $(divId).offset().top - 80
+                    }, 100);
+                });
+                
+            })
+        </script>
+</body>
+</html>
