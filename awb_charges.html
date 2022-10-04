@@ -43,7 +43,7 @@
 <body>
     <nav class="navbar navbar-light px-5" style="background : #ec008c; height: 60px;">
         <a class="navbar-brand" href="#">
-            <img src="./../../imgs/2GOexpress.png" height="30" alt="">
+            <img src="./2GOexpress.png" height="30" alt="">
         </a>
         <!-- <span class="text-light">v.20220519</span> -->
       </nav>
@@ -72,7 +72,6 @@
                                                                 <li>Added Adjustment Reference Number for adjustment</li>
                                                                 <li>Added EWT charges</li>
                                                                 <li>Added other charges</li>
-                                                                <li>Make charges per line</li>
                                                             </ul>
                                                         </td>
                                                     </tr>
@@ -91,7 +90,7 @@
                                                         <td>
                                                             <ul>
                                                                 <li>Separate the adjustment with Charges API</li>
-                                                                <li>Remove item details, duplicate of item details in Shipment Details API</li>
+                                                                <!-- <li>Remove item details, duplicate of item details in Shipment Details API</li> -->
                                                             </ul>
                                                         </td>
                                                     </tr>
@@ -304,7 +303,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>Optional</td>
-                                                    <td>Inbounding / Acceptance Hub name</td>
+                                                    <td><span class="badge bg-primary">NEW</span> Inbounding / Acceptance Hub name</td>
                                                 </tr>
                                                 
                                                 <tr>
@@ -313,8 +312,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>Optional</td>
-                                                    <td>Destination Hub.
-                                                    </td>
+                                                    <td><span class="badge bg-primary">NEW</span> Destination Hub.</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -1043,7 +1041,7 @@
                                                     </td>
                                                 </tr>
                                                 
-                                                <!-- <tr style="background: #75b8f1">
+                                                <tr style="background: #75b8f1">
                                                     <td>
                                                         <kbd>item_details</kbd>
                                                     </td>
@@ -1157,7 +1155,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td>Volumetric Weight in kg</td>
+                                                    <td><span class="badge bg-primary">NEW</span> Volumetric Weight in kg</td>
                                                 </tr>
                                                 <tr style="background : #bfe2ff">
                                                     <td>
@@ -1165,7 +1163,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td>Volumetric Weight in CBM</td>
+                                                    <td><span class="badge bg-primary">NEW</span> Volumetric Weight in CBM</td>
                                                 </tr>
                                                 <tr style="background : #bfe2ff">
                                                     <td>
@@ -1173,7 +1171,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td>Chargeable Weight in kg</td>
+                                                    <td><span class="badge bg-primary">NEW</span> Chargeable Weight in kg</td>
                                                 </tr>
                                                 <tr style="background : #bfe2ff">
                                                     <td>
@@ -1181,8 +1179,8 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td>Chargeable Weight in CBM</td>
-                                                </tr> -->
+                                                    <td><span class="badge bg-primary">NEW</span> Chargeable Weight in CBM</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                         
@@ -1329,7 +1327,26 @@
         "vat" : 30,
         "total_charges_vat_in" : 200,
         "total_charges_vat_ex" : 170,
-        
+        "item_details" : [
+            {
+                "item_no" : 1,
+                "item_status" : "DEL",
+                "item_status_date" : "2022-09-28 15:23:42",
+                "item_desc" : "Mail",
+                "item_cust_shortname" : "QPKS",
+                "package_code" : "QPKS",
+                "commodity_code" : "GC001",
+                "item_qty" : 1,
+                "item_weight" : 1,
+                "item_length" : 10,
+                "item_width" : 10,
+                "item_height" : 10,
+                "weight_vol_kg" : "0.28",
+                "weight_vol_cbm" : "0.001",
+                "weight_charge_kg" : "1",
+                "weight_charge_cbm" : "1",
+            }
+        ]
     }                    
     </code>
                                 </pre>
@@ -1360,13 +1377,7 @@
         {
 
             "tracking_no" : "AA000001A",
-            "adjustment_number" : "",
-            "adjustment_datetime" : "",
-            "adjustment_type" : "",
-            "adjustment_remarks" : "",
-            "adjustment_by" : "",
             "billtosite_account" : "NEW",
-            "billtosite_account_name" : "",
             "cust_short_name" : "NEW",
             "shipper_billtosite_account" : "",
             "shipper_name" : "John Dela Cruz",
@@ -1475,7 +1486,26 @@
             "vat" : 30,
             "total_charges_vat_in" : 200,
             "total_charges_vat_ex" : 170,
-            
+            "item_details" : [
+            {
+                "item_no" : 1,
+                "item_status" : "DEL",
+                "item_status_date" : "2022-09-28 15:23:42",
+                "item_desc" : "Mail",
+                "item_cust_shortname" : "QPKS",
+                "package_code" : "QPKS",
+                "commodity_code" : "GC001",
+                "item_qty" : 1,
+                "item_weight" : 1,
+                "item_length" : 10,
+                "item_width" : 10,
+                "item_height" : 10,
+                "weight_vol_kg" : "0.28",
+                "weight_vol_cbm" : "0.001",
+                "weight_charge_kg" : "1",
+                "weight_charge_cbm" : "1",
+            }
+        ]
         }
     }
                                         
