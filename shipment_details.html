@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <title>2GO API Documentation</title>
+    <title>2GO API Docs | Shipment Details</title>
     <style>
         .tgo_table{
             font-size: 14px;
@@ -43,9 +43,9 @@
 <body>
     <nav class="navbar navbar-light px-5" style="background : #ec008c; height: 60px;">
         <a class="navbar-brand" href="#">
-          <img src="./../imgs/2GOexpress.png" height="30" alt="">
+          <img src="./../../imgs/2GOexpress.png" height="40" alt="">
         </a>
-        <span class="text-light">v.20220919</span>
+        <!-- <span class="text-light">v.20220919</span> -->
       </nav>
       <div class="container-fluid">
             <div class="row">
@@ -90,10 +90,10 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>v.20220929</td>
+                                                        <td>v.20221003</td>
                                                         <td>
                                                             <ul>
-                                                                <li>Update test</li>
+                                                                <li>Add data type length, remove unneccessary fields.</li>
                                                             </ul>
                                                         </td>
                                                     </tr>
@@ -128,19 +128,12 @@
                                                 <th style="width: 40%;">Description</th>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>test_field</kbd>
-                                                    </td>
-                                                    <td>Decimal</td>
-                                                    <td>Optional</td>
-                                                    <td><b>Test Field for Phase 2</b></td>
-                                                </tr>
+                                                
                                                 <tr>
                                                     <td>
                                                         <kbd>tracking_no</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Unique identification number of the order. Shipment AWB Number</td>
                                                 </tr>
@@ -148,7 +141,7 @@
                                                     <td>
                                                         <kbd>pickup_type</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>
                                                         Field - Request for Pickup<br/>
@@ -159,7 +152,7 @@
                                                     <td>
                                                         <kbd>pickup_date</kbd>
                                                     </td>
-                                                    <td>Date <br/><small><em>YYYY-MM-DD</em></small></td>
+                                                    <td>Date <br/><small><b><em>(YYYY-MM-DD)</em></b></small></td>
                                                     <td>True</td>
                                                     <td>Pickup Date</td>
                                                 </tr>
@@ -167,7 +160,7 @@
                                                     <td>
                                                         <kbd>dest_system</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>true</td>
                                                     <td>Destination System. Accepted Value: "qair" or "zip"</td>
                                                 </tr>
@@ -175,23 +168,15 @@
                                                     <td>
                                                         <kbd>billtosite_account</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td><span class="badge bg-primary">NEW</span> Fusion Bill To Site Account Number on where the charges should be accounted.</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <kbd>billtosite_account_name</kbd>
-                                                    </td>
-                                                    <td>String(64)</td>
-                                                    <td>True</td>
-                                                    <td><span class="badge bg-primary">NEW</span> Fusion Bill To Site Account Name.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
                                                         <kbd>qair_account_number</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>QuikAir Account Number.</td>
                                                 </tr>
@@ -200,15 +185,15 @@
                                                     <td>
                                                         <kbd>transaction_type</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
-                                                    <td>True</td>
-                                                    <td>Expected value : <br/>PX - Parcels<br/>DX - Documents</td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
+                                                    <td>Expected value : <br/>PX - Parcels<br/>DX - Documents. <br/>Will be discontinued in <span class="badge bg-danger">Phase 2</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>cust_short_name</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td><span class="badge bg-danger">Phase 2</span> Customer Short Name must be existing in the Merchant Master.</td>
                                                 </tr>
@@ -216,7 +201,7 @@
                                                     <td>
                                                         <kbd>store_id</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Fusion Store Location ID. Inbounding store id</td>
                                                 </tr>
@@ -224,7 +209,7 @@
                                                     <td>
                                                         <kbd>store_name</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Fusion Store Location Name
                                                     </td>
@@ -233,15 +218,15 @@
                                                     <td>
                                                         <kbd>store_type</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
                                                     <td><span class="badge bg-primary">New</span> Fusion Store Location Type : Agent-owned, 2GO Owned, etc</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>booking_no</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>NPR Booking Number</td>
                                                 </tr>
@@ -251,7 +236,7 @@
                                                     <td>
                                                         <kbd>paymode</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td class="small">
                                                         Prepaid<br/>
@@ -265,7 +250,7 @@
                                                     <td>
                                                         <kbd>service_type</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td class="small">
                                                         DD - Door to Door<br/>
@@ -284,7 +269,7 @@
                                                     <td>
                                                         <kbd>shipper_billtosite_account</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td><span class="badge bg-danger">Phase 2</span> Shipper Fusion Account-Bill to site Number</td>
                                                 </tr>
@@ -293,7 +278,7 @@
                                                     <td>
                                                         <kbd>shipper_name</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Shipper name in Merchant Master </td>
                                                 </tr>
@@ -302,7 +287,7 @@
                                                     <td>
                                                         <kbd>shipper_contact</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Shipper Contact Number </td>
                                                 </tr>
@@ -310,7 +295,7 @@
                                                     <td>
                                                         <kbd>shipper_address</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Shipper Complete Address</td>
                                                 </tr>
@@ -319,7 +304,7 @@
                                                     <td>
                                                         <kbd>ultimate_shipper</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Name of the sender if different from the Shipper Name</td>
                                                 </tr>
@@ -327,7 +312,7 @@
                                                     <td>
                                                         <kbd>ultimate_shipper_contact</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Contact Number of the ultimate shipper </td>
                                                 </tr>
@@ -336,7 +321,7 @@
                                                     <td>
                                                         <kbd>ultimate_shipper_address</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Ultimate Shipper Address</td>
                                                 </tr>
@@ -344,7 +329,7 @@
                                                     <td>
                                                         <kbd>ultimate_shipper_address_province</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Ultimate Shipper Address Province</td>
                                                 </tr>
@@ -352,7 +337,7 @@
                                                     <td>
                                                         <kbd>ultimate_shipper_address_city</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Ultimate Shipper Address City</td>
                                                 </tr>
@@ -360,7 +345,7 @@
                                                     <td>
                                                         <kbd>ultimate_shipper_address_brgy</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Ultimate Shipper Address Barangay</td>
                                                 </tr>
@@ -368,7 +353,7 @@
                                                     <td>
                                                         <kbd>ultimate_shipper_address_street</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Ultimate Shipper Address Bldg. / House Number / Street</td>
                                                 </tr>
@@ -376,7 +361,7 @@
                                                     <td>
                                                         <kbd>ultimate_shipper_area_code</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>2GO Area Code based on the Ultimate Shipper Address</td>
                                                 </tr>
@@ -384,7 +369,7 @@
                                                     <td>
                                                         <kbd>ultimate_shipper_zip</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Ultimate Shipper ZIP</td>
                                                 </tr>
@@ -392,7 +377,7 @@
                                                     <td>
                                                         <kbd>origin_port</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Origin Port</td>
                                                 </tr>
@@ -400,7 +385,7 @@
                                                     <td>
                                                         <kbd>origin_area_code</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Shipper Area Code. It must be existing in Postal code master</td>
                                                 </tr>
@@ -408,7 +393,7 @@
                                                     <td>
                                                         <kbd>origin_landmark</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Pickup Location Landmark</td>
                                                 </tr>
@@ -417,15 +402,15 @@
                                                     <td>
                                                         <kbd>cnee_billtosite_account</kbd>
                                                     </td>
-                                                    <td>Date</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Fusion Customer Bill to Site Account Number</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <kbd>destination_port</kbd>
+                                                        <kbd>dest_port</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Destination Port</td>
                                                 </tr>
@@ -433,7 +418,7 @@
                                                     <td>
                                                         <kbd>cnee_name</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Consignee Name</td>
                                                 </tr>
@@ -441,7 +426,7 @@
                                                     <td>
                                                         <kbd>cnee_contact</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Consignee Contact Number</td>
                                                 </tr>
@@ -449,7 +434,7 @@
                                                     <td>
                                                         <kbd>cnee_address</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Consignee Complete Address</td>
                                                 </tr>
@@ -457,7 +442,7 @@
                                                     <td>
                                                         <kbd>cnee_address_province</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Consignee Province</td>
                                                 </tr>
@@ -465,7 +450,7 @@
                                                     <td>
                                                         <kbd>cnee_address_city</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Consignee City</td>
                                                 </tr>
@@ -473,7 +458,7 @@
                                                     <td>
                                                         <kbd>cnee_address_brgy</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Consignee Barangay</td>
                                                 </tr>
@@ -481,16 +466,16 @@
                                                     <td>
                                                         <kbd>cnee_address_street</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
-                                                    <td>True</td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
                                                     <td>Consignee Address Bldg. / House Number / Street</td>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <td>
-                                                        <kbd>cnee_area_code</kbd>
+                                                        <kbd>dest_area_code</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>2GO Area Code based on the Consignee Address</td>
                                                 </tr>
@@ -499,15 +484,15 @@
                                                     <td>
                                                         <kbd>ultimate_cnee</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Name of the receiver in case the consignee is not available during delivery</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <kbd>destination_landmark</kbd>
+                                                        <kbd>dest_landmark</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Consignee Address Landmark </td>
                                                 </tr>
@@ -515,7 +500,7 @@
                                                     <td>
                                                         <kbd>cnee_careoff_store</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>2GO Store ID where consignee should pickup the shipment</td>
                                                 </tr>
@@ -524,7 +509,7 @@
                                                     <td>
                                                         <kbd>dest_store_port</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Destination Port of the 2GO Store</td>
                                                 </tr>
@@ -533,7 +518,7 @@
                                                     <td>
                                                         <kbd>return_cnee_name</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Name of the receiver for return shipment</td>
                                                 </tr>
@@ -542,7 +527,7 @@
                                                     <td>
                                                         <kbd>return_cnee_contact</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Contact Number of the receiver for return shipment</td>
                                                 </tr>
@@ -551,7 +536,7 @@
                                                     <td>
                                                         <kbd>return_address</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Return complete address</td>
                                                 </tr>
@@ -559,7 +544,7 @@
                                                     <td>
                                                         <kbd>return_address_province</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Return Address Province</td>
                                                 </tr>
@@ -567,7 +552,7 @@
                                                     <td>
                                                         <kbd>return_address_city</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Return Address City</td>
                                                 </tr>
@@ -575,7 +560,7 @@
                                                     <td>
                                                         <kbd>return_address_brgy</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Return Address Barangay</td>
                                                 </tr>
@@ -583,7 +568,7 @@
                                                     <td>
                                                         <kbd>return_address_street</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Return Address Bldg. / House Number / Street</td>
                                                 </tr>
@@ -591,7 +576,7 @@
                                                     <td>
                                                         <kbd>return_address_area_code</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Return Address Area Code</td>
                                                 </tr>
@@ -599,7 +584,7 @@
                                                     <td>
                                                         <kbd>return_address_port_code</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Return Address Port Code</td>
                                                 </tr>
@@ -608,7 +593,7 @@
                                                     <td>
                                                         <kbd>special_instruction</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Free text field</td>
                                                 </tr>
@@ -616,7 +601,7 @@
                                                     <td>
                                                         <kbd>attachment</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Free text field</td>
                                                 </tr>
@@ -625,7 +610,7 @@
                                                     <td>
                                                         <kbd>or_number</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Official Receipt Number. <em><b>Required.</b> If paymode is "Prepaid"</em></td>
                                                 </tr>
@@ -633,7 +618,7 @@
                                                     <td>
                                                         <kbd>or_amount</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Official Receipt Amount. <em><b>Required.</b> If paymode is "Prepaid"</em></td>
                                                 </tr>
@@ -641,7 +626,7 @@
                                                     <td>
                                                         <kbd>or_date</kbd>
                                                     </td>
-                                                    <td>Date<br/><small><em>YYYY-MM-DD</em></small></td>
+                                                    <td>Date<br/><small><b><em>(YYYY-MM-DD)</em></b></small></td>
                                                     <td>Optional</td>
                                                     <td>Date of when the Official Receipt was issued. <em><b>Required.</b> If paymode is "Prepaid"</em></td>
                                                 </tr>
@@ -651,16 +636,16 @@
                                                     <td>
                                                         <kbd>inbounding_hub</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td><span class="badge bg-primary">new</span> Inbounding Hub.
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <kbd>destination_hub</kbd>
+                                                        <kbd>dest_hub</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td><span class="badge bg-primary">new</span> Destination Hub.
                                                     </td>
@@ -669,7 +654,7 @@
                                                     <td>
                                                         <kbd>cod_amount</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>Optional</td>
                                                     <td>Amount to be collected upon delivery</td>
                                                 </tr>
@@ -677,7 +662,7 @@
                                                     <td>
                                                         <kbd>declared_value</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Declared Value of the shipments</td>
                                                 </tr>
@@ -685,73 +670,41 @@
                                                     <td>
                                                         <kbd>mps_flg</kbd>
                                                     </td>
-                                                    <td>(Y/N)</td>
+                                                    <td>Boolean<br/>(Y/N)</td>
                                                     <td>True</td>
                                                     <td>Flag to indicate if the shipments is Multi-Part Shipment(MPS)</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <kbd>walkin_flg</kbd>
-                                                    </td>
-                                                    <td>(Y/N)</td>
-                                                    <td>True</td>
-                                                    <td>Flag to indicate if the Customer is walkin</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>fc_charge</kbd>
-                                                    </td>
-                                                    <td>Decimal</td>
-                                                    <td>Optional</td>
-                                                    <td><span class="badge bg-primary">New</span> Shipment Freight Charge</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>total_charge</kbd>
-                                                    </td>
-                                                    <td>Decimal</td>
-                                                    <td>Optional</td>
-                                                    <td><span class="badge bg-primary">New</span> Shipment total charge</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
                                                         <kbd>rc_code</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
-                                                    <td>Optional</td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
                                                     <td><span class="badge bg-danger">Phase 2</span> Revenue Center Code</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>rc_parent_name</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
-                                                    <td>Optional</td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
                                                     <td><span class="badge bg-danger">Phase 2</span> Revenue Center Parent Name</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>rc_child_name</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
-                                                    <td>Optional</td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
                                                     <td><span class="badge bg-danger">Phase 2</span> Revenue Center Child Name</td>
                                                 </tr>
-                                                <!-- <tr>
-                                                    <td>
-                                                        <kbd>repacking_fee_flag</kbd>
-                                                    </td>
-                                                    <td>String(64)</td>
-                                                    <td>Optional</td>
-                                                    <td><span class="badge bg-danger">For review</span>Repacking Fee Flag</td>
-                                                </tr> -->
-                                                
                                                 <tr>
                                                     <td>
                                                         <kbd>encoding_date</kbd>
                                                     </td>
-                                                    <td>Datetime</td>
-                                                    <td>Required</td>
+                                                    <td>Datetime<br/>
+                                                    <small><b><em>(YYYY-MM-DD HH:mm:ss)</em></b></small></td>
+                                                    <td>True</td>
                                                     <td><span class="badge bg-primary">New</span> Timestamp of when the order was created</td>
                                                 </tr>
                                               
@@ -773,11 +726,11 @@
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
-                                                        <kbd>item_description</kbd>
+                                                        <kbd>item_desc</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td>Item Description</td>
+                                                    <td><span class="badge bg-success">UPDATE</span> From <kbd>item_description</kbd> to <kbd>item_desc</kbd> to align with other API. Item Description</td>
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
@@ -791,7 +744,7 @@
                                                     <td>
                                                         <kbd>package_code</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Fusion Package Code</td>
                                                 </tr>
@@ -799,7 +752,7 @@
                                                     <td>
                                                         <kbd>commodity_code</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Commodity Code must be present in Commodity master list</td>
                                                 </tr>
@@ -807,7 +760,7 @@
                                                     <td>
                                                         <kbd>item_cust_shortname</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td><span class="badge bg-danger">Phase 2</span> Per Line Item Customer Short Name</td>
                                                 </tr>
@@ -815,7 +768,7 @@
                                                     <td>
                                                         <kbd>block_measurement</kbd>
                                                     </td>
-                                                    <td>(Y/N)</td>
+                                                    <td>Boolean<br/>(Y/N)</td>
                                                     <td>Optional</td>
                                                     <td>Flag to indicate if the shipments have block measurement</td>
                                                 </tr>
@@ -823,7 +776,7 @@
                                                     <td>
                                                         <kbd>item_weight</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Item Actual Weight in KG</td>
                                                 </tr>
@@ -831,7 +784,7 @@
                                                     <td>
                                                         <kbd>item_length</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Item Length</td>
                                                 </tr>
@@ -839,7 +792,7 @@
                                                     <td>
                                                         <kbd>item_width</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Item Width</td>
                                                 </tr>
@@ -847,7 +800,7 @@
                                                     <td>
                                                         <kbd>item_height</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Item Height</td>
                                                 </tr>
@@ -855,7 +808,7 @@
                                                     <td>
                                                         <kbd>weight_vol_kg</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Volumetric Weight in kg</td>
                                                 </tr>
@@ -863,7 +816,7 @@
                                                     <td>
                                                         <kbd>weight_vol_cbm</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Volumetric Weight in CBM</td>
                                                 </tr>
@@ -871,7 +824,7 @@
                                                     <td>
                                                         <kbd>weight_charge_kg</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Chargeable Weight in kg</td>
                                                 </tr>
@@ -879,7 +832,7 @@
                                                     <td>
                                                         <kbd>weight_charge_cbm</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Chargeable Weight in CBM</td>
                                                 </tr>
@@ -910,6 +863,17 @@
         }
     </code>
         </pre>
+
+        <pre class="bg-light">
+
+    <kbd class="bg-danger">422 Validation Error</kbd>                                
+    <code>
+        {
+            "result": "error",
+            "msg": "Validation Error : Field encoding_date - Invalid format"
+        }
+    </code>
+        </pre>
                                             
         <pre class="bg-light print_page_break_before" style="font-size: 12px;">                           
             <code>
@@ -921,17 +885,16 @@
             "pickup_date" : "2022-05-20",
             "dest_system" : "qair",
             "billtosite_account" : "20070010101",
-            "billtosite_account_name" : "Addidas",
             "qair_account_number" : "20070010101",
             "transaction_type" : "PX",
-            "cust_short_name" : "",
+            "cust_short_name" : "Addidas Non COD",
             "store_id" : "",
             "store_name" : "",
             "store_type" : "",
             "booking_no" : "",
             "paymode" : "CS",
             "service_type" : "DD",
-            "shipper_billtosite_account" : "",
+            "shipper_billtosite_account" : "20070010101",
             "shipper_name" : "Addidas",
             "shipper_contact" : "09123456789",
             "shipper_address" : "37th Floor, 5th Ave Net Park Building Fort Bonifacio Taguig City",
@@ -948,7 +911,7 @@
             "origin_area_code" : "R1111",
             "origin_landmark" : "",
             "cnee_billtosite_account" : "",
-            "destination_port" : "CEB",
+            "dest_port" : "CEB",
             "cnee_name" : "John Dela Cruz",
             "cnee_contact" : "09987654321",
             "cnee_address" : "#22 Rizal Street Brgy Guadalupe Cebu City",
@@ -956,9 +919,9 @@
             "cnee_address_city" : "Cebu City",
             "cnee_address_brgy" : "Guadalupe",
             "cnee_address_street" : "#22 Rizal Street",
-            "cnee_area_code" : "R4321",
+            "dest_area_code" : "R4321",
             "ultimate_cnee" : "",
-            "destination_landmark" : "Green Gate",
+            "dest_landmark" : "Green Gate",
             "cnee_careoff_store" : "",
             "dest_store_port" : "",
             "return_cnee_name" : "",
@@ -976,21 +939,18 @@
             "or_amount" : "",
             "or_date" : "",
             "inbounding_hub" : "",
-            "destination_hub" : "",
+            "dest_hub" : "",
             "cod_amount" : 5000,
             "declared_value" : 5000,
             "mps_flg" : "Y",
-            "walkin_flg" : "N",
-            "fc_charge" : 180,
-            "total_charge" : 200,
-            "rc_code" : "",
-            "rc_parent_name" : "",
-            "rc_child_name" : "",
-            "encoding_date" : "",
+            "rc_code" : "Express",
+            "rc_parent_name" : "Express Parent",
+            "rc_child_name" : "Express Child",
+            "encoding_date" : "2022-05-20 22:32:32",
             "item_details" : [
                 {
                     "item_no" : 1,
-                    "item_description" : "Bag",
+                    "item_desc" : "Bag",
                     "item_qty" : 1,
                     "package_code" : "QPKS",
                     "commodity_code" : "GENCAR",

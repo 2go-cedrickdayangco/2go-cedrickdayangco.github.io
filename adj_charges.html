@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <title>2GO API Documentation</title>
+    <title>2GO API Documentation | AWB Charges API</title>
     <style>
         .tgo_table{
             font-size: 14px;
@@ -43,9 +43,9 @@
 <body>
     <nav class="navbar navbar-light px-5" style="background : #ec008c; height: 60px;">
         <a class="navbar-brand" href="#">
-            <img src="./../imgs/2GOexpress.png" height="30" alt="">
+            <img src="./../../imgs/2GOexpress.png" height="30" alt="">
         </a>
-        <span class="text-light">v.20220519</span>
+        <!-- <span class="text-light">v.20220519</span> -->
       </nav>
       <div class="container-fluid">
             <div class="row">
@@ -66,37 +66,22 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>v.20220519</td>
+                                                        <td>v.20221003</td>
                                                         <td><ul>
-                                                                <li>Remove Port Sticker</li>
-                                                                <li>Added Adjustment Reference Number for adjustment</li>
-                                                                <li>Added EWT charges</li>
-                                                                <li>Added other charges</li>
-                                                                <li>Make charges per line</li>
+                                                                <li>Initial Documents</li>
+                                                                <li>Separate Adjustment with Charges API to AWB Charges API to avoid confusion</li>
                                                             </ul>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>v.20220915</td>
-                                                        <td>
-                                                            <ul>
-                                                                <li>FarEye Phase 2 (Rates Computation for Express)</li>
-                                                                <li>Added Adjustment Date, Type, By</li>
-                                                                <li>Re-arrange fields</li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
 
                                         <h5 class="mt-3">Triggers</h5>
                                         <div class="p-2" style="background-color: #dbefff;">
-                                            <b>AWB Charges API will be triggered 12MN Daily</b><br/><br/>
                                             
-                                            1. Shipment reaching terminating status : DEL, RTS, RTC, NAC, WFC, Pull-out, LST, PLD + DEL<br/>
-                                            2. If <kbd>paymode</kbd> is "Prepaid", right after encoding.<br/>
-                                            3. Post-delivery adjustment.
+                                            1. Post-Delivery Adjustment
 
                                             <!-- 1. Upon inbounding of shipment with Prepaid paymode -->
                                         </div>
@@ -104,7 +89,7 @@
                                         <h5 class="mt-3">Endpoint URL</h5>
                                         <div class="bg-light">
                                             <span class="d-inline-block px-2 py-1 text-light bg-success">POST</span>
-                                            <span class="small">https://dev01-nrvqudqpv70d-nt.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/FARARCHRGSARRTE/1.0/ </span>
+                                            <span class="small">TBD</span>
                                         </div>
                                         
                                         <h5 class="mt-5">Request Parameters</h5>
@@ -120,7 +105,7 @@
                                                     <td>
                                                         <kbd>tracking_no</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Shipment AWB form number</td>
                                                 </tr>
@@ -158,7 +143,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <kbd>adjustment_by</kbd>
+                                                        <kbd>updated_by</kbd>
                                                     </td>
                                                     <td>String</td>
                                                     <td>Optional</td>
@@ -168,39 +153,32 @@
                                                     <td>
                                                         <kbd>billtosite_account</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Fusion Bill To Site Account Number on where the charges should be accounted.</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>billtosite_account_name</kbd>
-                                                    </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
-                                                    <td>Fusion Bill To Site Account Name on where the charges should be accounted.</td>
-                                                </tr>
+                                                
                                                 <tr>
                                                     <td>
                                                         <kbd>cust_short_name</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
-                                                    <td>Optional</td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
                                                     <td>Customer Short Name must be existing in the Merchant Master.</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>shipper_billtosite_account</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
                                                     <td>Shipper Fusion Account Number-Bill To unique Combination</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>shipper_name</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Legal Entity Name</td>
                                                 </tr>
@@ -208,15 +186,15 @@
                                                     <td>
                                                         <kbd>cnee_billtosite_account</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
                                                     <td>Consignee Fusion Account Number-Bill To unique Combination</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>cnee_name</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Consignee Name</td>
                                                 </tr>
@@ -224,7 +202,7 @@
                                                     <td>
                                                         <kbd>cnee_careoff_store</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>2GO Store ID where consignee should pickup the shipment</td>
                                                 </tr>
@@ -232,7 +210,7 @@
                                                     <td>
                                                         <kbd>cnee_address</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Consignee Delivery Address</td>
                                                 </tr>
@@ -242,7 +220,7 @@
                                                     <td>
                                                         <kbd>origin_port</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Port of Origin</td>
                                                 </tr>
@@ -250,23 +228,23 @@
                                                     <td>
                                                         <kbd>origin_area_code</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Origin Area Code</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <kbd>destination_port</kbd>
+                                                        <kbd>dest_port</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Port of Destination</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <kbd>destination_area_code</kbd>
+                                                        <kbd>dest_area_code</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Destination Area Code</td>
                                                 </tr>
@@ -275,7 +253,7 @@
                                                     <td>
                                                         <kbd>service_type</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>AA, AD, DA, PP, PD, DP, DD</td>
                                                 </tr> -->
@@ -283,7 +261,7 @@
                                                     <td>
                                                         <kbd>product_type</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>PX / DX</td>
                                                 </tr> -->
@@ -291,7 +269,7 @@
                                                     <td>
                                                         <kbd>mode_of_transport</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Mid-mile mode of Transport (Air, Road, Cabin Load, Sea, Roro)</td>
                                                 </tr> -->
@@ -299,48 +277,58 @@
                                                     <td>
                                                         <kbd>service_type</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td>Service Type (AA, AD, DA, PP, PD, DP, DD)  </td>
+                                                    <td class="small">
+                                                        DD - Door to Door<br/>
+                                                        DP - Door to Pier<br/>
+                                                        PP - Pier to Pier<br/>
+                                                        PD - Pier to Door<br/>
+                                                        AA - Airport to Airport<br/>
+                                                        AD - Airport to Door<br/>
+                                                        DA -  Door to Airport<br/>
+                                                        DDS - Door to Door Same Day<br/>
+                                                        ADS - Airport to Door Same Day
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>store_id</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
                                                     <td>Fusion Store Location ID</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>store_name</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
                                                     <td>Fusion Store Location name</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>store_type</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
                                                     <td>Fusion Store Location Type : Agent-owned, 2GO Owned, etc</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>inbounding_hub</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
                                                     <td>Inbounding / Acceptance Hub name</td>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <td>
-                                                        <kbd>destination_hub</kbd>
+                                                        <kbd>dest_hub</kbd>
                                                     </td>
-                                                    <td>String(64)</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Destination Hub.
                                                     </td>
@@ -349,33 +337,31 @@
                                                     <td>
                                                         <kbd>encoding_date</kbd>
                                                     </td>
-                                                    <td>Date</td>
+                                                    <td>Datetime<br/><small><b><em>(YYYY-MM-DD HH:mm:ss)</em></b></small></td>
                                                     <td>True</td>
-                                                    <td>Required format: YYYY-MM-DD 
-                                                        HH24:MI:SS. Order Acceptance Date</td>
+                                                    <td>Timestamp of when the transaction was created</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>pickup_date</kbd>
                                                     </td>
-                                                    <td>Date</td>
+                                                    <td>Date<br/><small><b><em>(YYYY-MM-DD)</em></b></small></td>
                                                     <td>True</td>
-                                                    <td>Required format: YYYY-MM-DD 
-                                                        HH24:MI:SS. Date of when the shipment was picked-up</td>
+                                                    <td>Date of when the shipment was picked-up</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>attachment</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
-                                                    <td></td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
+                                                    <td>Free-text field</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>status</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>DEL, RTS, RTC, NAC, WFC, Pull-out, LST, 
                                                         PLD + DEL</td>
@@ -384,56 +370,30 @@
                                                     <td>
                                                         <kbd>status_date</kbd>
                                                     </td>
-                                                    <td>Date</td>
+                                                    <td>Datetime<br/><small><b><em>(YYYY-MM-DD HH:mm:ss)</em></b></small></td>
                                                     <td>True</td>
-                                                    <td>Required format: YYYY-MM-DD 
-                                                        HH24:MI:SS. Date of successful delivery</td>
+                                                    <td>Status Date</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>paymode</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td>Payment Mode</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>payor_name</kbd>
+                                                    <td class="small">
+                                                        Prepaid<br/>
+                                                        Freight Collect<br/>
+                                                        CS - Collect Shipper<br/>
+                                                        CC - Collect Consignee<br/>
+                                                        SC - Service Cargo
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>Optional</td>
-                                                    <td>Payor Name</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>or_number</kbd>
-                                                    </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
-                                                    <td>Official Receipt Number</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>or_date</kbd>
-                                                    </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
-                                                    <td>Official Receipt Date</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>or_amount</kbd>
-                                                    </td>
-                                                    <td>Number</td>
-                                                    <td>True</td>
-                                                    <td>Official Receipt Amount</td>
-                                                </tr>
+                                                
                                                 <tr>
                                                     <td>
                                                         <kbd>cod_amount</kbd>
                                                     </td>
-                                                    <td>Number</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Amount to be Collected</td>
                                                 </tr>
@@ -441,49 +401,24 @@
                                                     <td>
                                                         <kbd>declared_value</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Declared Value</td>
                                                 </tr>
-                                                <!-- RC Mapping -->
                                                 
-                                                <tr>
-                                                    <td>
-                                                        <kbd>rc_code</kbd>
-                                                    </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
-                                                    <td>Revenue Center Code based on RC Mapping</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>rc_parent_name</kbd>
-                                                    </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
-                                                    <td>Revenue Center Parent Name based on RC Mapping</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>rc_child_name</kbd>
-                                                    </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
-                                                    <td>Revenue Center Child Name based on RC Mapping</td>
-                                                </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>ewt_rate</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td>Expanded Withholding Tax Rate</td>
+                                                    <td>Expanded Withholding Tax Rate in percentage : 2% or 5%</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>ewt_amount</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Expanded Withholding Tax Amount</td>
                                                 </tr>
@@ -491,185 +426,185 @@
                                                     <td>
                                                         <kbd>ewt_image</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(500)</td>
                                                     <td>Optional</td>
-                                                    <td>Uploaded image of BIR Form  2306, 2307</td>
+                                                    <td>URL of the uploaded image of BIR Form  2306, 2307</td>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <td>
                                                         <kbd>stripping_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
-                                                    <td>Stripping Fee</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
+                                                    <td><span class="badge bg-primary">NEW</span> Stripping Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>insurance_charge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Insurance Charge</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>valuation_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Valuation Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>fc_charge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Freight Collect Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>peak_season</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Peak Season</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>storage_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>security_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>cod_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Cash-on-Delivery Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>overtime_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Overtime Hour Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>parking_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Parking fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>toll_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Toll fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>subdivision_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Subdivision fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>manpower_regular_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Manpower Regular fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>manpower_special_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Manpower Special Holiday fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>manpower_legal_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Manpower Legal Holiday fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>add_trucking</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Multiple Drops</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>labor_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Labor Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>lashing_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Lashing Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>special_equip_charge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Special Equipment Charge</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>diversion_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
-                                                    <td></td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
+                                                    <td>Diversion Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>pullout_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
-                                                    <td>Refund / Pull-out Fee</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
+                                                    <td>For OR Refund / Pull-out Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>rts_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Return to Shipper Fee</td>
                                                 </tr>
                                                 
@@ -677,24 +612,24 @@
                                                     <td>
                                                         <kbd>awb_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>bl_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Bill of Lading</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>night_delivery_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Night Delivery Fee</td>
                                                 </tr>
                                                 
@@ -702,32 +637,24 @@
                                                     <td>
                                                         <kbd>store_pickup_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Store Pickup Fee</td>
                                                 </tr>
-                                                <!-- <tr>
-                                                    <td>
-                                                        <kbd>documentary_stamp_fee</kbd>
-                                                    </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
-                                                    <td>Documentary Stamp Fee</td>
-                                                </tr> -->
                                                 <tr>
                                                     <td>
                                                         <kbd>tfi</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Temporary Fuel Increase</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>detention_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Detention Fee</td>
                                                 </tr>
                                                 
@@ -735,64 +662,64 @@
                                                     <td>
                                                         <kbd>pickup_charge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>freight_charge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
-                                                    <td></td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
+                                                    <td>Freight Charge</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>trucking_charge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>delivery_charge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>otd_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Out of Town Delivery Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>osa_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Out of Serviceable Area Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>fuel_surcharge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
-                                                    <td></td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
+                                                    <td>Fuel Surcharge</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>crating_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Crating Fee</td>
                                                 </tr>
                                             
@@ -800,96 +727,96 @@
                                                     <td>
                                                         <kbd>docs_return_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>docs_return_countering_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Document Return Counterering Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>alteration_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>breakbulk_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>bunker_surcharge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>cartage_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>dg_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Dangerous Goods</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>fragile_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>packaging_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>perishable_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>transshipment_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>add_drop_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Additional Drop Fee</td>
                                                 </tr>
                                                 
@@ -897,88 +824,80 @@
                                                     <td>
                                                         <kbd>add_trip_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Additional Trucking</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>backload_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>bsa_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Block Space Agreement</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>open_crating_sea</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>close_crating_sea</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>demurrage_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>foul_trip_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>fuel_surcharge</kbd>
-                                                    </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>hustling_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>lift_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Lift On / Lift Off Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>add_manpower_charge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                            
@@ -986,31 +905,31 @@
                                                     <td>
                                                         <kbd>rate_adjustment_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>rate_surcharge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Special Events</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>holiday_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Rest Day / Holiday Fee</td>
                                                 </tr>
                                                 <!-- <tr>
                                                     <td>
                                                         <kbd>add_delivery_charge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Additional Trucking / Delivery Charge</td>
                                                 </tr> -->
@@ -1018,8 +937,8 @@
                                                     <td>
                                                         <kbd>network_charge</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Network Charge</td>
                                                 </tr>
                                                 <tr style="background: #bbffbb">
@@ -1034,16 +953,16 @@
                                                     <td>
                                                         <kbd>charge_name</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td></td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
                                                     <td>Other Charge Name</td>
                                                 </tr>
                                                 <tr style="background: #ddfadd">
                                                     <td>
                                                         <kbd>charge_fee</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td></td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>Optional</td>
                                                     <td>Charge Fee</td>
                                                 </tr>
                                                 
@@ -1051,7 +970,7 @@
                                                     <td>
                                                         <kbd>dst</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Documentary Stamp
                                                 </tr>
@@ -1059,7 +978,7 @@
                                                     <td>
                                                         <kbd>vat</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Equal to Vatable Charge x 12%</td>
                                                 </tr>
@@ -1067,7 +986,7 @@
                                                     <td>
                                                         <kbd>total_charges_vat_in</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Total Charge is the summation of all charges + VAT + doc stamps. </td>
                                                 </tr>
@@ -1075,7 +994,7 @@
                                                     <td>
                                                         <kbd>total_charges_vat_ex</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td class="small">
                                                         sum of all charges before VAT and before Doc Stamps.<br/>
@@ -1084,25 +1003,8 @@
 
                                                     </td>
                                                 </tr>
-                                                <tr style="background:  #ffb2b2;">
-                                                    <td>
-                                                        <kbd>withholding_tax</kbd>
-                                                    </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
-                                                    <td class="small">Depending on the Customer Type : tax rates > 2%  or 5%<br/>
-                                                        Computation: Total Charge VAT-In * (2% or 5%) = Withholding tax. <b>For Confirmation of removal</b>
-                                                        </td>
-                                                </tr>
-                                                <tr style="background:  #ffb2b2;">
-                                                    <td>
-                                                        <kbd>total_charge</kbd>
-                                                    </td>
-                                                    <td>Decimal</td>
-                                                    <td>True</td>
-                                                    <td>Must be equal to Total Charges before Taxes + DST + VAT-Withholding tax).  <b>For Confirmation of removal</b></td>
-                                                </tr>
-                                                <tr style="background: #75b8f1">
+                                                
+                                                <!-- <tr style="background: #75b8f1">
                                                     <td>
                                                         <kbd>item_details</kbd>
                                                     </td>
@@ -1110,14 +1012,6 @@
                                                     <td>True</td>
                                                     <td>Wrapper for item details</td>
                                                 </tr>
-                                                <!-- <tr style="background : #bfe2ff">
-                                                    <td>
-                                                        <kbd>port_sticker</kbd>
-                                                    </td>
-                                                    <td>String</td>
-                                                    <td>Optional</td>
-                                                    <td>Port Sticker. Required if shipment is MPS</td>
-                                                </tr> -->
                                                 
                                                 <tr style="background : #bfe2ff">
                                                     <td>
@@ -1131,7 +1025,7 @@
                                                     <td>
                                                         <kbd>item_status</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Port Sticker Delivery Status. Required if shipment is MPS</td>
                                                 </tr>
@@ -1139,7 +1033,7 @@
                                                     <td>
                                                         <kbd>item_status_date</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Port Sticker Status Date. Required if shipment is MPS</td>
                                                 </tr>
@@ -1147,15 +1041,15 @@
                                                     <td>
                                                         <kbd>item_desc</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>True</td>
+                                                    <td>String(128)</td>
+                                                    <td>Optional</td>
                                                     <td>Item Description</td>
                                                 </tr>
                                                 <tr style="background : #bfe2ff">
                                                     <td>
                                                         <kbd>item_cust_shortname</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>Optional</td>
                                                     <td>Per Line Item Customer Short Name</td>
                                                 </tr>
@@ -1163,7 +1057,7 @@
                                                     <td>
                                                         <kbd>package_code</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Packaging Code</td>
                                                 </tr>
@@ -1172,14 +1066,14 @@
                                                     <td>
                                                         <kbd>commodity_code</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Commodity Code</td>
                                                 </tr>
                                                 
                                                 <tr style="background : #bfe2ff">
                                                     <td>
-                                                        <kbd>quantity</kbd>
+                                                        <kbd>item_qty</kbd>
                                                     </td>
                                                     <td>Number</td>
                                                     <td>True</td>
@@ -1189,7 +1083,7 @@
                                                     <td>
                                                         <kbd>item_weight</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Item Weight in kg</td>
                                                 </tr>
@@ -1197,7 +1091,7 @@
                                                     <td>
                                                         <kbd>item_length</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Item Length in centimeter (cm)</td>
                                                 </tr>
@@ -1205,7 +1099,7 @@
                                                     <td>
                                                         <kbd>item_width</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Item Width in centimeter (cm)</td>
                                                 </tr>
@@ -1213,7 +1107,7 @@
                                                     <td>
                                                         <kbd>item_height</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Item Height in centimeter (cm)</td>
                                                 </tr>
@@ -1222,7 +1116,7 @@
                                                     <td>
                                                         <kbd>weight_vol_kg</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Volumetric Weight in kg</td>
                                                 </tr>
@@ -1230,7 +1124,7 @@
                                                     <td>
                                                         <kbd>weight_vol_cbm</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Volumetric Weight in CBM</td>
                                                 </tr>
@@ -1238,7 +1132,7 @@
                                                     <td>
                                                         <kbd>weight_charge_kg</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Chargeable Weight in kg</td>
                                                 </tr>
@@ -1246,14 +1140,10 @@
                                                     <td>
                                                         <kbd>weight_charge_cbm</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Chargeable Weight in CBM</td>
-                                                </tr>
-                                            
-                                                
-                                                
-                                                
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                         
@@ -1280,315 +1170,13 @@
                                         <pre class="bg-light">                           
                                     <code>
     {
-
-        "tracking_no" : "AA000001A",
-        "adjustment_number" : "",
-        "adjustment_datetime" : "",
-        "adjustment_type" : "",
-        "adjustment_remarks" : "",
-        "adjustment_by" : "",
-        "billtosite_account" : "10000-10001",
-        "billtosite_account_name" : "BDO Philippines",
-        "cust_short_name" : "BDO Credit Card",
-        "shipper_billtosite_account" : "10000-10001",
-        "shipper_name" : "BDO Philippines",
-        "cnee_billtosite_account" : "",
-        "cnee_name" : "Jane Doe",
-        "cnee_careoff_store" : "",
-        "cnee_address" : "Quezon Memorial Circle Quezon City",
-        "origin_port" : "MNL",
-        "origin_area_code" : "R4321",
-        "destination_port" : "MNL",
-        "destination_area_code" : "R9876",
-        "service_type" : "DD",
-        "store_id" : "",
-        "store_name" : "",
-        "store_type" : "",
-        "inbounding_hub" : "monoh",
-        "destination_hub" : "monoh",
-        "encoding_date" : "2022-09-26 09:23:33",
-        "pickup_date" : "2022-09-26",
-        "attachment" : "",
-        "status" : "DEL",
-        "status_date" : "2022-09-28 15:23:42",
-        "paymode" : "CS",
-        "payor_name" : "",
-        "or_number" : "",
-        "or_date" : "",
-        "or_amount" : "",
-        "cod_amount" : "",
-        "declared_value" : "500",
-        "rc_code" : "",
-        "rc_parent_name" : "",
-        "rc_child_name" : "",
-        "ewt_rate" : "",
-        "ewt_amount" : "",
-        "ewt_image" : "",
-        "stripping_fee" : 0,
-        "insurance_charge" : 0,
-        "valuation_fee" : 0,
-        "fc_charge" : 0,
-        "peak_season" : 0,
-        "storage_fee" : 0,
-        "security_fee" : 0,
-        "cod_fee" : 0,
-        "overtime_fee" : 0,
-        "parking_fee" : 0,
-        "toll_fee" : 0,
-        "subdivision_fee" : 0,
-        "manpower_regular_fee" : 0,
-        "manpower_special_fee" : 0,
-        "manpower_legal_fee" : 0,
-        "add_trucking" : 0,
-        "labor_fee" : 0,
-        "lashing_fee" : 0,
-        "special_equip_charge" : 0,
-        "diversion_fee" : 0,
-        "pullout_fee" : 0,
-        "rts_fee" : 0,
-        "awb_fee" : 0,
-        "bl_fee" : 0,
-        "night_delivery_fee" : 0,
-        "store_pickup_fee" : 0,
-        "documentary_stamp_fee" : 0,
-        "tfi" : 0,
-        "detention_fee" : 0,
-        "pickup_charge" : 0,
-        "freight_charge" : 0,
-        "trucking_charge" : 0,
-        "delivery_charge" : 0,
-        "otd_fee" : 0,
-        "osa_fee" : 0,
-        "fuel_surcharge" : 0,
-        "crating_fee" : 0,
-        "docs_return_fee" : 0,
-        "docs_return_countering_fee" : 0,
-        "alteration_fee" : 0,
-        "breakbulk_fee" : 0,
-        "bunker_surcharge" : 0,
-        "cartage_fee" : 0,
-        "dg_fee" : 0,
-        "fragile_fee" : 0,
-        "packaging_fee" : 0,
-        "perishable_fee" : 0,
-        "transshipment_fee" : 0,
-        "add_drop_fee" : 0,
-        "add_trip_fee" : 0,
-        "backload_fee" : 0,
-        "bsa_fee" : 0,
-        "open_crating_sea" : 0,
-        "close_crating_sea" : 0,
-        "demurrage_fee" : 0,
-        "foul_trip_fee" : 0,
-        "fuel_surcharge" : 0,
-        "hustling_fee" : 0,
-        "lift_fee" : 0,
-        "add_manpower_charge" : 0,
-        "rate_adjustment_fee" : 0,
-        "rate_surcharge" : 0,
-        "holiday_fee" : 0,
-        "add_delivery_charge" : 0,
-        "network_charge" : 0,
-        "other_charges" : [
-            {
-                "charge_name" : "",
-                "charge_fee" : 0,
-            }
-        ],
-        "dst" : 0,
-        "vat" : 30,
-        "total_charges_vat_in" : 200,
-        "total_charges_vat_ex" : 170,
-        "withholding_tax" : 0,
-        "total_charge" : 0,
-        "item_details" : [
-            {
-                "port_sticker" : "",
-                "item_no" : 1,
-                "item_status" : "DEL",
-                "item_status_date" : "2022-09-28 15:23:42",
-                "item_desc" : "Mail",
-                "item_cust_shortname" : "QPKS",
-                "package_code" : "QPKS",
-                "commodity_code" : "GC001",
-                "quantity" : 1,
-                "item_weight" : 1,
-                "item_length" : 10,
-                "item_width" : 10,
-                "item_height" : 10,
-                "weight_vol_kg" : "0.28",
-                "weight_vol_cbm" : "0.001",
-                "weight_charge_kg" : "1",
-                "weight_charge_cbm" : "1",
-            }
-        ]
-    }                    
-    </code>
-                                </pre>
-                                <h5 class="print_page_break_before">Sample Payload - Prepaid</h5>
-                                <pre class="bg-light">                           
-                            <code>
-    {
-        {
-
-            "tracking_no" : "AA000001A",
-            "adjustment_number" : "",
-            "adjustment_datetime" : "",
-            "adjustment_type" : "",
-            "adjustment_remarks" : "",
-            "adjustment_by" : "",
-            "billtosite_account" : "NEW",
-            "billtosite_account_name" : "",
-            "cust_short_name" : "NEW",
-            "shipper_billtosite_account" : "",
-            "shipper_name" : "John Dela Cruz",
-            "cnee_billtosite_account" : "",
-            "cnee_name" : "Jane Doe",
-            "cnee_careoff_store" : "",
-            "cnee_address" : "Quezon Memorial Circle Quezon City",
-            "origin_port" : "MNL",
-            "origin_area_code" : "R4321",
-            "destination_port" : "MNL",
-            "destination_area_code" : "R9876",
-            "service_type" : "DD",
-            "store_id" : "1001",
-            "store_name" : "SM Aura",
-            "store_type" : "owned",
-            "inbounding_hub" : "SM Aura",
-            "destination_hub" : "monoh",
-            "encoding_date" : "2022-09-26 09:23:33",
-            "pickup_date" : "2022-09-26",
-            "attachment" : "",
-            "status" : "",
-            "status_date" : "",
-            "paymode" : "Prepaid",
-            "payor_name" : "",
-            "or_number" : "MM0000225A",
-            "or_date" : "2022-09-26",
-            "or_amount" : "250",
-            "cod_amount" : "",
-            "declared_value" : "500",
-            "rc_code" : "",
-            "rc_parent_name" : "",
-            "rc_child_name" : "",
-            "ewt_rate" : "",
-            "ewt_amount" : "",
-            "ewt_image" : "",
-            "stripping_fee" : 0,
-            "insurance_charge" : 0,
-            "valuation_fee" : 0,
-            "fc_charge" : 0,
-            "peak_season" : 0,
-            "storage_fee" : 0,
-            "security_fee" : 0,
-            "cod_fee" : 0,
-            "overtime_fee" : 0,
-            "parking_fee" : 0,
-            "toll_fee" : 0,
-            "subdivision_fee" : 0,
-            "manpower_regular_fee" : 0,
-            "manpower_special_fee" : 0,
-            "manpower_legal_fee" : 0,
-            "add_trucking" : 0,
-            "labor_fee" : 0,
-            "lashing_fee" : 0,
-            "special_equip_charge" : 0,
-            "diversion_fee" : 0,
-            "pullout_fee" : 0,
-            "rts_fee" : 0,
-            "awb_fee" : 0,
-            "bl_fee" : 0,
-            "night_delivery_fee" : 0,
-            "store_pickup_fee" : 0,
-            "documentary_stamp_fee" : 0,
-            "tfi" : 0,
-            "detention_fee" : 0,
-            "pickup_charge" : 0,
-            "freight_charge" : 0,
-            "trucking_charge" : 0,
-            "delivery_charge" : 0,
-            "otd_fee" : 0,
-            "osa_fee" : 0,
-            "fuel_surcharge" : 0,
-            "crating_fee" : 0,
-            "docs_return_fee" : 0,
-            "docs_return_countering_fee" : 0,
-            "alteration_fee" : 0,
-            "breakbulk_fee" : 0,
-            "bunker_surcharge" : 0,
-            "cartage_fee" : 0,
-            "dg_fee" : 0,
-            "fragile_fee" : 0,
-            "packaging_fee" : 0,
-            "perishable_fee" : 0,
-            "transshipment_fee" : 0,
-            "add_drop_fee" : 0,
-            "add_trip_fee" : 0,
-            "backload_fee" : 0,
-            "bsa_fee" : 0,
-            "open_crating_sea" : 0,
-            "close_crating_sea" : 0,
-            "demurrage_fee" : 0,
-            "foul_trip_fee" : 0,
-            "fuel_surcharge" : 0,
-            "hustling_fee" : 0,
-            "lift_fee" : 0,
-            "add_manpower_charge" : 0,
-            "rate_adjustment_fee" : 0,
-            "rate_surcharge" : 0,
-            "holiday_fee" : 0,
-            "add_delivery_charge" : 0,
-            "network_charge" : 0,
-            "other_charges" : [
-                {
-                    "charge_name" : "",
-                    "charge_fee" : 0,
-                }
-            ],
-            "dst" : 10,
-            "vat" : 30,
-            "total_charges_vat_in" : 200,
-            "total_charges_vat_ex" : 170,
-            "withholding_tax" : 0,
-            "total_charge" : 0,
-            "item_details" : [
-                {
-                    "port_sticker" : "",
-                    "item_no" : 1,
-                    "item_status" : "",
-                    "item_status_date" : "",
-                    "item_desc" : "Mail",
-                    "item_cust_shortname" : "QPKS",
-                    "package_code" : "QPKS",
-                    "commodity_code" : "GC001",
-                    "quantity" : 1,
-                    "item_weight" : 1,
-                    "item_length" : 10,
-                    "item_width" : 10,
-                    "item_height" : 10,
-                    "weight_vol_kg" : "0.28",
-                    "weight_vol_cbm" : "0.001",
-                    "weight_charge_kg" : "1",
-                    "weight_charge_cbm" : "1",
-                }
-            ]
-        }
-    }
-                                        
-        </code>
-            </pre>  
-            <h5 class="print_page_break_before">Sample Payload - Adjustment</h5>
-                                <pre class="bg-light">                           
-                            <code>
-    {
         "tracking_no" : "AA000001A",
         "adjustment_number" : "ADJ-0000021",
         "adjustment_datetime" : "2022-09-29 01:23:33",
         "adjustment_type" : "",
         "adjustment_remarks" : "Update Declared Value",
-        "adjustment_by" : "johnd_2go",
+        "updated_by" : "johnd_2go",
         "billtosite_account" : "10000-10001",
-        "billtosite_account_name" : "BDO Philippines",
         "cust_short_name" : "BDO Credit Card",
         "shipper_billtosite_account" : "10000-10001",
         "shipper_name" : "BDO Philippines",
@@ -1612,15 +1200,8 @@
         "status" : "DEL",
         "status_date" : "2022-09-28 15:23:42",
         "paymode" : "CS",
-        "payor_name" : "",
-        "or_number" : "",
-        "or_date" : "",
-        "or_amount" : "",
         "cod_amount" : "",
         "declared_value" : "2500",
-        "rc_code" : "",
-        "rc_parent_name" : "",
-        "rc_child_name" : "",
         "ewt_rate" : "",
         "ewt_amount" : "",
         "ewt_image" : "",
@@ -1650,7 +1231,6 @@
         "bl_fee" : 0,
         "night_delivery_fee" : 0,
         "store_pickup_fee" : 0,
-        "documentary_stamp_fee" : 0,
         "tfi" : 0,
         "detention_fee" : 0,
         "pickup_charge" : 0,
@@ -1680,7 +1260,6 @@
         "close_crating_sea" : 0,
         "demurrage_fee" : 0,
         "foul_trip_fee" : 0,
-        "fuel_surcharge" : 0,
         "hustling_fee" : 0,
         "lift_fee" : 0,
         "add_manpower_charge" : 0,
@@ -1699,11 +1278,11 @@
         "vat" : 30,
         "total_charges_vat_in" : 250,
         "total_charges_vat_ex" : 220,
-        "withholding_tax" : 0,
-        "total_charge" : 0,
-        "item_details" : [
+    }                
+    </code>
+                                </pre>
+                                <!-- "item_details" : [
             {
-                "port_sticker" : "",
                 "item_no" : 1,
                 "item_status" : "DEL",
                 "item_status_date" : "2022-09-28 15:23:42",
@@ -1711,7 +1290,7 @@
                 "item_cust_shortname" : "QPKS",
                 "package_code" : "QPKS",
                 "commodity_code" : "GC001",
-                "quantity" : 1,
+                "item_qty" : 1,
                 "item_weight" : 1,
                 "item_length" : 10,
                 "item_width" : 10,
@@ -1721,11 +1300,8 @@
                 "weight_charge_kg" : "1",
                 "weight_charge_cbm" : "1",
             }
-        ]
-    }
-                                        
-        </code>
-            </pre>    
+        ] -->
+              
                                     </div>
                                 </div>
 

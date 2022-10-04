@@ -106,9 +106,9 @@
                                                     <td>
                                                         <kbd>reference_no</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td>Entry reference number</td>
+                                                    <td>System generated deposit reference number</td>
                                                 </tr>
                                                 <tr style="background : #75b8f1">
                                                     <td>
@@ -122,7 +122,7 @@
                                                     <td>
                                                         <kbd>transaction_type</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>COD(Cash-on-Delivery) or SF(Shipping Fee)</td>
                                                 </tr> -->
@@ -130,7 +130,7 @@
                                                     <td>
                                                         <kbd>tracking_no</kbd>
                                                     </td>
-                                                    <td>String</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Tracking Number / AWB Number</td>
                                                 </tr>
@@ -138,7 +138,7 @@
                                                     <td>
                                                         <kbd>cod_amount</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Shipment COD Amount.</td>
                                                 </tr>
@@ -147,7 +147,7 @@
                                                     <td>
                                                         <kbd>sf_amount</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>True</td>
                                                     <td>Shipping Fee</td>
                                                 </tr>
@@ -155,7 +155,7 @@
                                                     <td>
                                                         <kbd>store_id</kbd>
                                                     </td>
-                                                    <td>String(100)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>2GO Store ID</td>
                                                 </tr>
@@ -163,7 +163,7 @@
                                                     <td>
                                                         <kbd>store_name</kbd>
                                                     </td>
-                                                    <td>String(100)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>2GO Store Name</td>
                                                 </tr>
@@ -171,7 +171,7 @@
                                                     <td>
                                                         <kbd>store_type</kbd>
                                                     </td>
-                                                    <td>String(5)</td>
+                                                    <td>String(128)(5)</td>
                                                     <td>True</td>
                                                     <td>2GO Store Type <em class="small">Options : RET, AGT, HUB</em></td>
                                                 </tr>
@@ -180,7 +180,7 @@
                                                     <td>
                                                         <kbd>cashier_id</kbd>
                                                     </td>
-                                                    <td>String(100)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>2GO Cashier ID</td>
                                                 </tr>
@@ -188,7 +188,7 @@
                                                     <td>
                                                         <kbd>cashier_name</kbd>
                                                     </td>
-                                                    <td>String(100)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>2GO Cashier Name</td>
                                                 </tr> 
@@ -196,16 +196,16 @@
                                                     <td>
                                                         <kbd>deposit_bank_account</kbd>
                                                     </td>
-                                                    <td>String</td>
-                                                    <td>Required</td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
                                                     <td>Deposit Bank Account Number</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>deposit_amount</kbd>
                                                     </td>
-                                                    <td>Decimal</td>
-                                                    <td>Required</td>
+                                                    <td>Decimal(12,2)</td>
+                                                    <td>True</td>
                                                     <td>Amount Deposited</td>
                                                 </tr>
                                                 <tr>
@@ -220,7 +220,7 @@
                                                     <td>
                                                         <kbd>deposit_slip_url</kbd>
                                                     </td>
-                                                    <td>String(255)</td>
+                                                    <td>String(500)</td>
                                                     <td>Optional</td>
                                                     <td>Deposit Slip Image URL</td>
                                                 </tr>
@@ -229,7 +229,7 @@
                                                     <td>
                                                         <kbd>deposit_reference</kbd>
                                                     </td>
-                                                    <td>String(100)</td>
+                                                    <td>String(128)</td>
                                                     <td>True</td>
                                                     <td>Deposit Reference Number</td>
                                                 </tr>
@@ -237,7 +237,7 @@
                                                     <td>
                                                         <kbd>date_created</kbd>
                                                     </td>
-                                                    <td>Datetime</td>
+                                                    <td>Datetime <br/> <em class="small">(YYYY-MM-DD HH:mm:ss)</em></td>
                                                     <td>True</td>
                                                     <td>Timestamp of when the entry is created</td>
                                                 </tr>
@@ -296,6 +296,16 @@
         "msg": "Invalid Payload"
     }</code>
                                 </pre>
+<pre class="bg-light">
+
+    <kbd class="bg-danger">422 Validation Error</kbd>                                
+    <code>
+    {
+        "result": "error",
+        "msg": "Validation Error : Field cod_amount - Invalid format must be decimal"
+    }
+    </code>
+</pre>
                                     </div>
                                 </div>
 
