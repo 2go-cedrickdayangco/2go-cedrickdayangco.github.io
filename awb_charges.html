@@ -58,8 +58,8 @@
                                         <a id="forms_api_creation"><h4>AWB Charges API - FarEye to OICS
                                         </h4></a>
                                         <div class="bg-warning rounded p-2 mt-4">
-                                            <b>Change Logs</b>
-                                            <table class="table table-bordered border-dark table-sm small">
+                                            <h4>Change Logs</h4>
+                                            <table class="table table-bordered border-dark table-sm small mt-3">
                                                 <thead>
                                                 <th>Version</th>
                                                 <th>Description</th>
@@ -90,6 +90,15 @@
                                                         <td>
                                                             <ul>
                                                                 <li>Separate the adjustment with Charges API</li>
+                                                                <li>Remove <kbd>total_charge</kbd> <kbd>withholding_tax</kbd></li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>v.20221004</td>
+                                                        <td>
+                                                            <ul>
+                                                                <li>Added comments from finance</li>
                                                                 <!-- <li>Remove item details, duplicate of item details in Shipment Details API</li> -->
                                                             </ul>
                                                         </td>
@@ -98,23 +107,28 @@
                                             </table>
                                         </div>
 
-                                        <h5 class="mt-3">Triggers</h5>
-                                        <div class="p-2" style="background-color: #dbefff;">
+                                        
+                                        <div class="p-4 mt-5 rounded" style="background-color: #dbefff;">
+                                            <h4 class="">Triggers</h4>
+                                            <br/>
                                             <b>AWB Charges API will be triggered 12MN Daily</b><br/><br/>
-                                            
-                                            1. Shipment reaching terminating status : DEL, RTS, RTC, NAC, WFC, Pull-out, LST, PLD + DEL<br/>
-                                            2. If <kbd>paymode</kbd> is "Prepaid", right after encoding.<br/>
+                                            <ol class="list-group list-group-numbered">
+                                                <li class="list-group-item bg-transparent">Shipment reaching terminating status : DEL, RTS, RTC, NAC, WFC, Pull-out, LST, PLD + DEL</li>
+                                                <li class="list-group-item bg-transparent">If <kbd>paymode</kbd> is "Prepaid", right after encoding.</li>
+                                            </ol>
 
                                             <!-- 1. Upon inbounding of shipment with Prepaid paymode -->
                                         </div>
-
-                                        <h5 class="mt-3">Endpoint URL</h5>
-                                        <div class="bg-light">
-                                            <span class="d-inline-block px-2 py-1 text-light bg-success">POST</span>
-                                            <span class="small">TBD</span>
+                                        
+                                        <div class="my-5">
+                                            <h4>Endpoint URL</h4>
+                                            <div class="bg-light">
+                                                <span class="d-inline-block px-2 py-1 text-light bg-success">POST</span>
+                                                <span class="small">TBD</span>
+                                            </div>
                                         </div>
                                         
-                                        <h5 class="mt-5">Request Parameters</h5>
+                                        <h5 class="print_page_break_before mb-3">Request Parameters</h5>
                                         <table class="table table-hover table-bordered tgo_table">
                                             <thead class="bg-light">
                                                 <th style="width: 30%;">Name</th>
@@ -262,6 +276,7 @@
                                                     <td>String(128)</td>
                                                     <td>True</td>
                                                     <td class="small">
+                                                        <b>Available options</b><br/>
                                                         DD - Door to Door<br/>
                                                         DP - Door to Pier<br/>
                                                         PP - Pier to Pier<br/>
@@ -362,6 +377,7 @@
                                                     <td>String(128)</td>
                                                     <td>True</td>
                                                     <td class="small">
+                                                        <b>Available options</b><br/>
                                                         Prepaid<br/>
                                                         Freight Collect<br/>
                                                         CS - Collect Shipper<br/>
@@ -514,7 +530,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>Optional</td>
-                                                    <td></td>
+                                                    <td>Storage Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -522,7 +538,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>Optional</td>
-                                                    <td></td>
+                                                    <td>Security Fee</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -1009,7 +1025,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td>Documentary Stamp
+                                                    <td>Documentary Stamp</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -1017,7 +1033,13 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td>Equal to Vatable Charge x 12%</td>
+                                                    <td>
+                                                        <s>Equal to Vatable Charge x 12%</s><br/>
+                                                        <div class="p-2 bg-warning small">
+                                                            Comment from Che Oct 04, 2022<br/>
+                                                            not automatic 12% for all, but customers VAT classification if exempt or zero-rated have been provided to Magda, and should be basis of VAT
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -1033,10 +1055,14 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td class="small">
-                                                        sum of all charges before VAT and before Doc Stamps.<br/>
-1) Equal to Total Charges before Taxes for tagged VATABLE customers; <br/>
-2) Equal to Zero for VAT Exempt and Zero Rated Customers
+                                                    <td>
+                                                        Sum of all charges before VAT and before Doc Stamps.<br/>
+                                                        1) Equal to Total Charges before Taxes for tagged VATABLE customers; <br/>
+                                                        2) <s>Equal to Zero for VAT Exempt and Zero Rated Customers</s> 
+                                                        <div class="p-2 bg-warning small">
+                                                            Comment from Che Oct 04, 2022<br/>
+                                                            this is not zero even for zero rated or vat-exempt customers, but will only not include any VAT
+                                                        </div>
 
                                                     </td>
                                                 </tr>
@@ -1484,7 +1510,7 @@
             ],
             "dst" : 10,
             "vat" : 30,
-            "total_charges_vat_in" : 200,
+            "total_charges_vat_in" : 210,
             "total_charges_vat_ex" : 170,
             "item_details" : [
             {
