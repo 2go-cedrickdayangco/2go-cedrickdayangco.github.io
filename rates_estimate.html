@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>2GO API Documentation</title>
+    <style>
+        .tgo_table{
+            font-size: 14px;
+        }
+
+        .tgo_table td{
+            padding : 20px;
+        }
+
+        .bg-success-light{
+            background : #9beba2;
+        }
+        .sticky-offset {
+            top: 60px;
+        }
+
+        .sticky_pad{
+            margin-top : 60px;
+        }
+
+        
+        .nav-link{
+            color : #222;
+        }
+
+
+        @media print {
+            .print_page_break {page-break-after: always;}
+            .print_page_break_before {page-break-before: always;}
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light px-5" style="background : #ec008c; height: 60px;">
+        <a class="navbar-brand" href="#">
+          <img src="./2GOexpress.png" height="30" alt="">
+        </a>
+        <span class="text-light">v.2022919</span>
+      </nav>
+      <div class="container-fluid">
+            <div class="row">
+              
+                
+                <div class="col-12">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <a id="forms_api_creation"><h4>Cargo Rates Estimate
+                                        </h4></a>
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                        <div class="bg-warning rounded p-2 mt-4">
+                                            <b>Change Logs</b>
+                                            <table class="table table-bordered border-dark table-sm">
+                                                <thead>
+                                                <th>Version</th>
+                                                <th>Description</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>v.2022919</td>
+                                                        <td>Initial Document</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <h5 class="mt-3">API Flow</h5>
+                                        <div class="bg-light p-2">
+                                            OICS to FarEye
+                                        </div>
+
+                                        <h5 class="mt-3">Triggers</h5>
+                                        <div class="p-2" style="background-color: #dbefff;">
+                                            Upon inquiry
+                                        </div>
+
+                                        <h5 class="mt-3">Endpoint URL</h5>
+                                        <div class="bg-light">
+                                            <span class="d-inline-block px-2 py-1 text-light bg-success">POST</span>
+                                            TBD
+                                        </div>
+
+                                        <h5 class="mt-5">Request Parameters</h5>
+                                        <table class="table table-hover table-bordered tgo_table ">
+                                            <thead class="bg-light">
+                                                <th style="width: 30%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 15%;">Required</th>
+                                                <th style="width: 40%;">Description</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>billtosite_account</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>Optional</td>
+                                                    <td>Bill-to-site Account Number</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cust_short_name</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Customer Short Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>paymode</kbd>
+                                                    </td>
+                                                    <td>String(64)</td>
+                                                    <td>True</td>
+                                                    <td class="small">
+                                                        Prepaid<br/>
+                                                        Freight Collect<br/>
+                                                        CS - Collect Shipper<br/>
+                                                        CC - Collect Consignee<br/>
+                                                        SC - Service Cargo
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>service_type</kbd>
+                                                    </td>
+                                                    <td>String(64)</td>
+                                                    <td>True</td>
+                                                    <td class="small">
+                                                        DD - Door to Door<br/>
+                                                        DP - Door to Pier<br/>
+                                                        PP - Pier to Pier<br/>
+                                                        PD - Pier to Door<br/>
+                                                        AA - Airport to Airport<br/>
+                                                        AD - Airport to Door<br/>
+                                                        DA -  Door to Airport<br/>
+                                                        DDS - Door to Door Same Day<br/>
+                                                        ADS - Airport to Door Same Day
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>origin_port</kbd>
+                                                    </td>
+                                                    <td>String(64)</td>
+                                                    <td>True</td>
+                                                    <td>Origin Port</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>origin_area_code</kbd>
+                                                    </td>
+                                                    <td>String(64)</td>
+                                                    <td>True</td>
+                                                    <td>Shipper Area Code. It must be existing in Postal code master</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>destination_port</kbd>
+                                                    </td>
+                                                    <td>String(64)</td>
+                                                    <td>True</td>
+                                                    <td>Destination Port</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>dest_area_code</kbd>
+                                                    </td>
+                                                    <td>String(64)</td>
+                                                    <td>True</td>
+                                                    <td>2GO Area Code based on the Consignee Address</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>cod_amount</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>Optional</td>
+                                                    <td>Amount to be collected upon delivery</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>declared_value</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>Declared Value of the shipments</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table table-hover table-bordered tgo_table print_page_break_before">
+                                            <thead class="bg-light">
+                                                <th style="width: 30%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 15%;">Required</th>
+                                                <th style="width: 40%;">Description</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr style="background : #8eabfa">
+                                                    <td>
+                                                        <kbd>item_details</kbd>
+                                                    </td>
+                                                    <td>Array</td>
+                                                    <td>True</td>
+                                                    <td>Parent wrapper for the item details information</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>item_no</kbd>
+                                                    </td>
+                                                    <td>Number</td>
+                                                    <td>True</td>
+                                                    <td>Item Number</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>item_cust_shortname</kbd>
+                                                    </td>
+                                                    <td>String(64)</td>
+                                                    <td>Optional</td>
+                                                    <td><span class="badge bg-danger">Phase 2</span> Per Line Item Customer Short Name</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>item_description</kbd>
+                                                    </td>
+                                                    <td>String(64)</td>
+                                                    <td>True</td>
+                                                    <td>Item Description</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>item_qty</kbd>
+                                                    </td>
+                                                    <td>Number</td>
+                                                    <td>True</td>
+                                                    <td>Item Quanity</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>package_code</kbd>
+                                                    </td>
+                                                    <td>String(64)</td>
+                                                    <td>True</td>
+                                                    <td>Fusion Package Code</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>commodity_code</kbd>
+                                                    </td>
+                                                    <td>String(64)</td>
+                                                    <td>True</td>
+                                                    <td>Commodity Code must be present in Commodity master list</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>block_measurement</kbd>
+                                                    </td>
+                                                    <td>(Y/N)</td>
+                                                    <td>Optional</td>
+                                                    <td>Flag to indicate if the shipments have block measurement</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>item_weight</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>Item Actual Weight in KG</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>item_length</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>Item Length</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>item_width</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>Item Width</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>item_height</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>Item Height</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="">
+                                        <h5 class="mt-5 ">Sample Payload</h5>
+                                        <pre class="bg-light">                           
+                                    <code>
+        {
+            "billtosite_account" : "20001234-90001234",
+            "cust_short_name" : "9123456",
+            "paymode" : "Prepaid",
+            "service_type" : "DD",
+            "origin_port" : "MNL",
+            "origin_area_code" : "1550",
+            "destination_port" : "MNL",
+            "dest_area_code" : "1704",
+            "cod_amount" : 2000,
+            "declared_value" : 2000,
+            "item_details" : [
+                {
+                    "item_no" : 1,
+                    "item_cust_shortname" : "98765432",
+                    "item_description" : "Various Mails",
+                    "item_qty" : "1",
+                    "package_code" : "QPKL",
+                    "commodity_code" : "MAIL",
+                    "block_measurement" : "N",
+                    "item_weight" : "2",
+                    "item_length" : "10",
+                    "item_width" : "10",
+                    "item_height" : "10"
+                }
+            ]
+        }</code>
+                                </pre>
+                            </div>
+                                        <h5 class="print_page_break_before">Response Parameters</h5>
+                                        <table class="table table-hover table-bordered tgo_table ">
+                                            <thead class="bg-light">
+                                                <th style="width: 30%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 15%;">Required</th>
+                                                <th style="width: 40%;">Description</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>result</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>If request is success or not. "ok" if success</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>estimated_total_charge</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>Total Charge </td>
+                                                </tr>
+                                                <tr style="background : #8eabfa">
+                                                    <td>
+                                                        <kbd>breakdown</kbd>
+                                                    </td>
+                                                    <td>Array</td>
+                                                    <td>True</td>
+                                                    <td>Total Charge Breakdown</td>
+                                                </tr>
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>charge_type</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Charge Type</td>
+                                                </tr>
+                                                
+                                                <tr style="background : #b0c3f8">
+                                                    <td>
+                                                        <kbd>charge_amount</kbd>
+                                                    </td>
+                                                    <td>Decimal</td>
+                                                    <td>True</td>
+                                                    <td>Charge Amount</td>
+                                                </tr>
+                                                </tbody>
+                                                </table>
+                                                
+                                        <h5 class="mt-5 ">Sample Response</h5>
+                                        <pre class="bg-light">
+
+    <kbd class="bg-success-light text-dark">200 Success</kbd>                                
+                                    <code>
+    {
+        "result": "ok",
+        "estimated_total_charge" : 250,
+        "breakdown" : [
+            {
+                "charge_type" : "fc_charge",
+                "charge_amount" : 200
+            },
+            {
+                "charge_type" : "valuation_fee",
+                "charge_amount" : 30
+            },
+            {
+                "charge_type" : "vat",
+                "charge_amount" : 20
+            }
+        ]
+    }
+                                            </code>
+                                </pre>
+
+                                        <pre class="bg-light">
+
+    <kbd class="bg-danger">406 Error</kbd>                                
+                                    <code>
+    {
+        "result": "error",
+        "msg": "Invalid Payload"
+    }</code>
+                                </pre>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="card mb-5 print_page_break_before">
+                                    <div class="card-header">
+                                        <a id="forms_mapping"><h4>Forms Status Table</h4></a>
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                        <table class="table table-hover table-bordered tgo_table">
+                                            <thead class="bg-light">
+                                                <th style="width: 5%;">#</th>
+                                                <th style="width: 30%;">Code</th>
+                                                <th style="width: 35%;">Description</th>
+                                                <th style="width: 30%;">Remarks</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>CLD</td>
+                                                    <td>Cancelled</td>
+                                                    <td>Receipt of complete set of cancelled form</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>DEF</td>
+                                                    <td>Deferred</td>
+                                                    <td>Temporary status of form subject to approval of Controller.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>REL</td>
+                                                    <td>Released</td>
+                                                    <td>Receipt of forms by company owned stores.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>USD</td>
+                                                    <td>Used</td>
+                                                    <td>Consumed AWB.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            $(function(){
+                var divId;
+                $('.nav-link').click(function(){    
+                    
+                    divId = $(this).attr('href');
+                    console.log(divId);
+                    $('html, body').animate({
+                    scrollTop: $(divId).offset().top - 80
+                    }, 100);
+                });
+                
+            })
+        </script>
+</body>
+</html>
