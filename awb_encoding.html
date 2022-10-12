@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>2GO API Documentation</title>
+    <style>
+        .tgo_table{
+            font-size: 14px;
+        }
+
+        .tgo_table td{
+            padding : 20px;
+        }
+
+        .bg-success-light{
+            background : #9beba2;
+        }
+        .sticky-offset {
+            top: 60px;
+        }
+
+        .sticky_pad{
+            margin-top : 60px;
+        }
+
+        
+        .nav-link{
+            color : #222;
+        }
+
+
+        @media print {
+            .print_page_break {page-break-after: always;}
+            .print_page_break_before {page-break-before: always;}
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light px-5" style="background : #ec008c; height: 60px;">
+        <a class="navbar-brand" href="#">
+          <img src="./2GOexpress.png" height="40" alt="">
+        </a>
+        <span class="text-light">v1.0</span>
+      </nav>
+      <div class="container-fluid">
+            <div class="row">
+                <div class="container-fluid pt-3">
+                    <div class="row">
+                        <div class="col-12">
+
+                                
+                            <a id="forms_api_creation"><h4>AWB Encoding API</h4></a>
+                            
+                            <div class="bg-warning rounded p-2 mt-4">
+                                <b>Change Logs</b>
+                                <table class="table table-bordered border-dark table-sm small">
+                                    <thead>
+                                    <th>Version</th>
+                                    <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>v.20221012</td>
+                                            <td>
+                                                <ul>
+                                                    <li>Initial Documentation</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h5 class="mt-3">Flow</h5>
+                            <div class="p-2 bg-light">
+                                2GO to FarEye
+                            </div>
+                            <h5 class="mt-3">Endpoint URL</h5>
+                            <div class="bg-light">
+                                <span class="d-inline-block px-2 py-1 text-light bg-success">POST</span>
+                                TBD by FarEye
+                            </div>
+                            
+                            <h5 class="mt-5">Request Parameters</h5>
+                            <table class="table table-hover table-bordered tgo_table ">
+                                <thead class="bg-light">
+                                    <th style="width: 30%;">Name</th>
+                                    <th style="width: 15%;">Type</th>
+                                    <th style="width: 15%;">Required</th>
+                                    <th style="width: 40%;">Description</th>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>tracking_no</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>Unique Tracking No / AWB Number. Reference Number</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>store_destination_port</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Destination Port of Store</td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>
+                                            <kbd>cust_short_name</kbd>
+                                        </td>
+                                        <td>String(100)</td>
+                                        <td>Optional</td>
+                                        <td>Fusion Customer Short Name</td>
+                                    </tr> -->
+                                    <tr>
+                                        <td>
+                                            <kbd>store_id</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Fusion Store Location ID. Must exist in Location master data</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>pickup_date</kbd>
+                                        </td>
+                                        <td>Date<br/><small><em>YYYY-MM-DD</em></small></td>
+                                        <td>True</td>
+                                        <td>If pickup type is "Field", input the preferred pickup schedule. If pickup_type is "Drop Off", input date of when the pickup happened</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>pickup_type</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>
+                                            Field - Request for Pickup<br/>
+                                            Drop Off - Already On-Hand
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>destination_system</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>
+                                            Qair or Zip 
+                                            <br/>
+                                            <div class="p-2 bg-warnng">Will still be available in Phase 2?</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>customer_account_no</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>
+                                            Customer Account Number. NEWEXP for express walkin, NEWLCLREG for LCL walkin. Must exist in Merchant master data.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>paymode</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>
+                                            PRP - Prepaid<br/>
+                                            FC - Freight Collect<br/>
+                                            CS - Collect Shipper<br/>
+                                            CC - Collect Consignee<br/>
+                                            SC - Service Cargo
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>booking_no</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>NPR Booking Number</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <kbd>service_type</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>
+                                            PP - Pier to Pier<br/>
+                                            PD - Pier to Door<br/>
+                                            DD - Door to Door<br/>
+                                            DP - Door to Pier<br/>
+                                            AA - Airport to Airport<br/>
+                                            AD - Airport to Door<br/>
+                                            DDS - Door to Door Same Day<br/>
+                                            ADS - Airport to Door Same Day
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>shipper_name</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>Shipper name in Merchant Master </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>shipper_contact</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Shipper Contact Number </td>
+                                    </tr>
+                                
+                                    <tr>
+                                        <td>
+                                            <kbd>shipper_address</kbd>
+                                        </td>
+                                        <td>String(500)</td>
+                                        <td>True</td>
+                                        <td>Shipper Address</td>
+                                    </tr>
+                                    
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>shipper_area_code</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>2GO Area Code based on the Shipper Address</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <kbd>origin_landmark</kbd>
+                                        </td>
+                                        <td>String(500)</td>
+                                        <td>Optional</td>
+                                        <td>Pickup Location Landmark</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>ultimate_shipper</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Name of the sender if different from the Shipper Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>ultimate_shipper_contact</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Contact Number of the ultimate shipper </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>ultimate_shipper_address</kbd>
+                                        </td>
+                                        <td>String(500)</td>
+                                        <td>Optional</td>
+                                        <td>Ultimate Shipper Address</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>ultimate_shipper_area_code</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>2GO Area Code based on the Ultimate Shipper Address</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>origin_port</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>Origin Port. Must exist in Port master data.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>cnee_name</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>Consignee Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>cnee_contact</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Consignee Contact Number</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>cnee_city</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Consingee Address</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>cnee_brgy</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Consingee Address</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>cnee_address</kbd>
+                                        </td>
+                                        <td>String(500)</td>
+                                        <td>True</td>
+                                        <td>Consingee Address</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>cnee_area_code</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>2GO Area Code based on the Consignee Address</td>
+                                    </tr>
+                                
+                                    <tr>
+                                        <td>
+                                            <kbd>ultimate_cnee</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Name of the receiver in case the consignee is not available during delivery</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>destination_port</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>Destination Port. Must exist in Port master data.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>destination_landmark</kbd>
+                                        </td>
+                                        <td>String(500)</td>
+                                        <td>Optional</td>
+                                        <td>Consignee Address Landmark </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>cnee_careoff_store</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Consignee CO (2GO Store). 2GO Store ID where the shipment should be picked-up by Consignee</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>return_cnee_name</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Name of the receiver for return shipment. If return details is different from origin details</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>return_cnee_contact</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Contact Number of the receiver for return shipment. If return details is different from origin details</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>return_cnee_address</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Return Address. If return details is different from origin details</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>return_cnee_city</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Return Address City. If return details is different from origin details</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>return_cnee_port</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Return Address Port. If return details is different from origin details</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>return_cnee_area_code</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Return Area Code. If return details is different from origin details</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>declared_value</kbd>
+                                        </td>
+                                        <td>Decimal(12,2)</td>
+                                        <td>True</td>
+                                        <td>Declared Value of the shipments</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>cod_amount</kbd>
+                                        </td>
+                                        <td>Decimal(12,2)</td>
+                                        <td>True</td>
+                                        <td>Amount to be collected upon delivery</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>inbounding_hub</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Inbounding Hub</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>special_instruction</kbd>
+                                        </td>
+                                        <td>String(500)</td>
+                                        <td>Optional</td>
+                                        <td>Free text field</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>attachment</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Free text field</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            <kbd>or_number</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Official Receipt Number. Required if <kbd>paymode</kbd> is Prepaid</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>or_amount</kbd>
+                                        </td>
+                                        <td>Decimal(12,2)</td>
+                                        <td>Optional</td>
+                                        <td>Official Receipt Amount. Required if <kbd>paymode</kbd> is Prepaid</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>or_date</kbd>
+                                        </td>
+                                        <td>Date<br/><small><em>YYYY-MM-DD</em></small></td>
+                                        <td>True</td>
+                                        <td>Date of when the Official Receipt was issued. Required if <kbd>paymode</kbd> is Prepaid</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <kbd>mps_flg</kbd>
+                                        </td>
+                                        <td>(Y/N)</td>
+                                        <td>True</td>
+                                        <td>Flag to indicate if the shipments is Multi-Part Shipment(MPS)</td>
+                                    </tr>
+                                    <tr style="background : #8eabfa">
+                                        <td>
+                                            <kbd>item_details</kbd>
+                                        </td>
+                                        <td>Array</td>
+                                        <td>True</td>
+                                        <td>Parent wrapper for the item details information</td>
+                                    </tr>
+                                    
+                                    <tr style="background : #b0c3f8">
+                                        <td>
+                                            <kbd>item_no</kbd>
+                                        </td>
+                                        <td>Number</td>
+                                        <td>True</td>
+                                        <td>Item Number. Sequencial and must start to "1"</td>
+                                    </tr>
+                                    
+                                    <tr style="background : #b0c3f8">
+                                        <td>
+                                            <kbd>item_description</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>Optional</td>
+                                        <td>Item Description</td>
+                                    </tr>
+                                    <tr style="background : #b0c3f8">
+                                        <td>
+                                            <kbd>block_measurement</kbd>
+                                        </td>
+                                        <td>(Y/N)</td>
+                                        <td>Optional</td>
+                                        <td>Flag to indicate if the shipments have block measurement</td>
+                                    </tr>
+                                    
+                                    <tr style="background : #b0c3f8">
+                                        <td>
+                                            <kbd>item_qty</kbd>
+                                        </td>
+                                        <td>Number</td>
+                                        <td>True</td>
+                                        <td>Item Quanity</td>
+                                    </tr>
+                                    <tr style="background : #b0c3f8">
+                                        <td>
+                                            <kbd>package_code</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>Fusion Package Code</td>
+                                    </tr>
+                                    <tr style="background : #b0c3f8">
+                                        <td>
+                                            <kbd>commodity_code</kbd>
+                                        </td>
+                                        <td>String(128)</td>
+                                        <td>True</td>
+                                        <td>Commodity Code must be present in Commodity master list</td>
+                                    </tr>
+                                    <tr style="background : #b0c3f8">
+                                        <td>
+                                            <kbd>item_weight</kbd>
+                                        </td>
+                                        <td>Decimal(12,2)</td>
+                                        <td>True</td>
+                                        <td>Item Actual Weight in KG</td>
+                                    </tr>
+                                    <tr style="background : #b0c3f8">
+                                        <td>
+                                            <kbd>item_length</kbd>
+                                        </td>
+                                        <td>Decimal(12,2)</td>
+                                        <td>True</td>
+                                        <td>Item Length in cm</td>
+                                    </tr>
+                                    <tr style="background : #b0c3f8">
+                                        <td>
+                                            <kbd>item_width</kbd>
+                                        </td>
+                                        <td>Decimal(12,2)</td>
+                                        <td>True</td>
+                                        <td>Item Width in cm</td>
+                                    </tr>
+                                    <tr style="background : #b0c3f8">
+                                        <td>
+                                            <kbd>item_height</kbd>
+                                        </td>
+                                        <td>Decimal(12,2)</td>
+                                        <td>True</td>
+                                        <td>Item Height in cm</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            <div class="print_page_break_before">
+                                
+                                <h5 class="">Sample Payload</h5>
+                                <pre class="bg-light small" style="font-size: 12px;">                           
+    <code>
+        
+    {
+        tracking_no : "AA000001A",
+        store_destination_port : "",
+        store_id : "1013296",
+        pickup_date : "2022-10-12",
+        pickup_type : "Drop-off",
+        destination_system : "Qair",
+        customer_account_no : "NEWEXP",
+        paymode : "Prepaid",
+        booking_no : "",
+        service_type : "DD",
+        shipper_name : "John Dela Cruz",
+        shipper_contact : "09123456789",
+        shipper_address : "#123 California St. Pembo Makati City",
+        shipper_area_code : "M3410",
+        origin_landmark : "Blue Gate",
+        ultimate_shipper : "",
+        ultimate_shipper_contact : "",
+        ultimate_shipper_address : "",
+        ultimate_shipper_area_code : "",
+        origin_port : "MNL",
+        cnee_name : "Maria Dela Cruz",
+        cnee_contact : "09987654321",
+        cnee_city : "Cebu City",
+        cnee_brgy : "Cordova",
+        cnee_address : "#987 Miami St. Cordova Cebu City",
+        cnee_area_code : "6037S",
+        ultimate_cnee : "",
+        destination_port : "CEB",
+        destination_landmark : "",
+        cnee_careoff_store : "",
+        return_cnee_name : "",
+        return_cnee_contact : "",
+        return_cnee_address : "",
+        return_cnee_city : "",
+        return_cnee_port : "",
+        return_cnee_area_code : "",
+        declared_value : "500",
+        cod_amount : "0",
+        inbounding_hub : "MONOH",
+        special_instruction : "",
+        attachment : "",
+        or_number : "MK00023A",
+        or_amount : "250.00",
+        or_date : "2022-10-12",
+        mps_flg : "N",
+        item_details : [
+            {
+                item_no : "1",
+                item_description : "Clothes",
+                block_measurement : "N",
+                item_qty : "1",
+                package_code : "QNDL",
+                commodity_code : "CL",
+                item_weight : "3",
+                item_length : "42",
+                item_width : "29.5",
+                item_height : "1",
+            }
+        ]
+    }
+        </code>
+                                </pre>
+                                <h5 class="print_page_break_before">Sample Response</h5>
+                                <pre class="bg-light">
+
+    <kbd class="bg-success-light text-dark">200 Success</kbd>                                
+    <code>
+        {
+            "result": "ok"
+        }
+    </code>
+        </pre>
+
+        <pre class="bg-light">
+
+    <kbd class="bg-danger">406 Error</kbd>                                
+    <code>
+        {
+            "result": "error",
+            "msg": { Error Message }
+        }
+    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            $(function(){
+                var divId;
+                $('.nav-link').click(function(){    
+                    
+                    divId = $(this).attr('href');
+                    console.log(divId);
+                    $('html, body').animate({
+                    scrollTop: $(divId).offset().top - 80
+                    }, 100);
+                });
+                
+            })
+        </script>
+</body>
+</html>
