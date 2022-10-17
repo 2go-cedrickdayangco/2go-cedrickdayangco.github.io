@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>2GO API Documentation</title>
+    <style>
+        .tgo_table{
+            font-size: 14px;
+        }
+
+        .tgo_table td{
+            padding : 20px;
+        }
+
+        .bg-success-light{
+            background : #9beba2;
+        }
+        .sticky-offset {
+            top: 60px;
+        }
+
+        .sticky_pad{
+            margin-top : 60px;
+        }
+
+        
+        .nav-link{
+            color : #222;
+        }
+
+
+        @media print {
+            .print_page_break {page-break-after: always;}
+            .print_page_break_before {page-break-before: always;}
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light px-5" style="background : #ec008c; height: 60px;">
+        <a class="navbar-brand" href="#">
+          <img src="./2GOexpress.png" height="30" alt="">
+        </a>
+        <span class="text-light">v1.0</span>
+      </nav>
+      <div class="container-fluid">
+            <div class="row">
+              
+                
+                <div class="col-12">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <a id="forms_api_creation"><h4>Forms Creation API - OICS to Fareye</h4></a>
+                                    </div>
+                                    <div class="card-body">
+                                        FarEye Endpoint URL for Forms Creation
+                                        
+                                        
+                                        <h5 class="mt-5">Request Parameters</h5>
+                                        <table class="table table-hover table-bordered tgo_table ">
+                                            <thead class="bg-light">
+                                                <th style="width: 30%;">Name</th>
+                                                <th style="width: 15%;">Type</th>
+                                                <th style="width: 15%;">Required</th>
+                                                <th style="width: 40%;">Description</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>shipment_form_dtls</kbd>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>Shipment form details wrapper.</td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td>
+                                                        <kbd>form_type</kbd>
+                                                    </td>
+                                                    <td>String(5)</td>
+                                                    <td>True</td>
+                                                    <td>Form type: 
+                                                        • AWB - Shipment Forms<br/>
+                                                        • CAWB - International forms <br/>
+                                                        • CN - Quiksave<br/>
+                                                        • SRVC - Service mail<br/>
+                                                        • OR - Official Receipts
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>form_series_start</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Form number start of form series. <em>Example : AA000001A</em>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>form_series_end</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Form number end of form series. <em>Example : AA009999A</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>form_status</kbd>
+                                                    </td>
+                                                    <td>String</td>
+                                                    <td>True</td>
+                                                    <td>Default to : "REL"</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>validity_date</kbd>
+                                                    </td>
+                                                    <td>
+                                                        Date<br/>
+                                                        <small><em>(YYYY-MM-DD)</em></small>
+                                                    </td>
+                                                    <td>Optional</td>
+                                                    <td>Form validity date. Required if form type is AWB or OR. If blank, forms does not have validity date</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>released_date</kbd>
+                                                    </td>
+                                                    <td>Date<br/>
+                                                        <small><em>(YYYY-MM-DD
+                                                            HH24:MI:SS)</em></small>
+                                                    </td>
+                                                    <td>True</td>
+                                                    <td>Shipment form release date</td>
+                                                </tr>
+                                               
+                                            </tbody>
+                                        </table>
+                                        <div class="">
+                                        <h5 class="mt-5">Sample Payload</h5>
+                                        <pre class="bg-light">                           
+                                    <code>
+        {
+            "shipment_form_dtls": [
+                {
+                    "form_type": "AWB",
+                    "form_series_start": "A0000002A",
+                    "form_series_end": "A0009999A",
+                    "form_status": "REL",
+                    "validity_date": "2022-12-31",
+                    "released_date": "2021-01-12 03:24:45"
+                }, 
+                {
+                    "form_type": "AWB",
+                    "form_series_start": "B0000002A",
+                    "form_series_end": "B0009999A",
+                    "form_status": "REL",
+                    "validity_date": "2022-12-31",
+                    "released_date": "2021-01-12 03:24:45"
+                }
+            ]
+        }</code>
+                                </pre>
+                            </div>
+                                        <h5 class="mt-5 print_page_break_before">Response Parameters</h5>
+                                        <pre class="bg-light">
+
+    <kbd class="bg-success-light text-dark">200 Success</kbd>                                
+                                    <code>
+        {
+            success_count: 0,
+            failed_count: 2,
+            success_list:[],
+            failed_list: [
+                {
+                    form_series_start: "A0000002A",
+                    form_series_end: "A0009999A",
+                    reason: "Already Exist in Database "
+                },
+                {
+                   form_series_start: "B0000002A",
+                   form_series_end: "B0009999A",
+                    reason: "Already Exist in Database"
+                }
+            ]
+        }
+
+
+        {
+            success_count: 2,
+            failed_count: 0,
+            failed_list: [],
+            success_list:[
+                {
+                    form_series_start: "A0000002A",
+                    form_series_end: "A0009999A",
+                },
+                {
+                   form_series_start: "B0000002A",
+                   form_series_end: "B0009999A",
+                }
+            ]
+        }
+        
+        
+                                            </code>
+                                </pre>
+
+                                        <pre class="bg-light">
+
+    <kbd class="bg-danger">406 Error</kbd>                                
+                                    <code>
+    {
+        "result": "error",
+        "msg": "Invalid Payload"
+    }</code>
+                                </pre>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="card mb-5 print_page_break_before">
+                                    <div class="card-header">
+                                        <a id="forms_mapping"><h4>Forms Status Table</h4></a>
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                        <table class="table table-hover table-bordered tgo_table">
+                                            <thead class="bg-light">
+                                                <th style="width: 5%;">#</th>
+                                                <th style="width: 30%;">Code</th>
+                                                <th style="width: 35%;">Description</th>
+                                                <th style="width: 30%;">Remarks</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>CLD</td>
+                                                    <td>Cancelled</td>
+                                                    <td>Receipt of complete set of cancelled form</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>DEF</td>
+                                                    <td>Deferred</td>
+                                                    <td>Temporary status of form subject to approval of Controller.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>REL</td>
+                                                    <td>Released</td>
+                                                    <td>Receipt of forms by company owned stores.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>USD</td>
+                                                    <td>Used</td>
+                                                    <td>Consumed AWB.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            $(function(){
+                var divId;
+                $('.nav-link').click(function(){    
+                    
+                    divId = $(this).attr('href');
+                    console.log(divId);
+                    $('html, body').animate({
+                    scrollTop: $(divId).offset().top - 80
+                    }, 100);
+                });
+                
+            })
+        </script>
+</body>
+</html>
