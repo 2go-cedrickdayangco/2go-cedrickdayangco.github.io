@@ -97,6 +97,22 @@
                                                             </ul>
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>v.20221026</td>
+                                                        <td>
+                                                            <ul>
+                                                                <li>Add "fe" option to dest_system</li>
+                                                                <li>Update field to optional
+                                                                    <ul>
+                                                                        <li>Province</li>
+                                                                        <li>City</li>
+                                                                        <li>Barangay</li>
+                                                                        <li>Consignee Contact</li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -116,7 +132,7 @@
                                         <h5 class="mt-3">Endpoint URL</h5>
                                         <div class="bg-light">
                                             <span class="d-inline-block px-2 py-1 text-light bg-success">POST</span>
-                                            TBD
+                                            https://dev01-nrvqudqpv70d-nt.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/FARARSHPMNTDTLSARRTE/1.0/
                                         </div>
                                         
                                         <h5 class="mt-3">Request Parameters</h5>
@@ -162,7 +178,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>true</td>
-                                                    <td>Destination System. Accepted Value: "qair" or "zip"</td>
+                                                    <td>Destination System. Accepted Value: "fe", "qair" or "zip"</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -178,7 +194,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td>QuikAir Account Number.</td>
+                                                    <td>QuikAir / ZIP Customer Account Number.</td>
                                                 </tr>
                                                 
                                                 <tr>
@@ -194,7 +210,7 @@
                                                         <kbd>cust_short_name</kbd>
                                                     </td>
                                                     <td>String(128)</td>
-                                                    <td>True</td>
+                                                    <td>Optional</td>
                                                     <td><span class="badge bg-danger">Phase 2</span> Customer Short Name must be existing in the Merchant Master.</td>
                                                 </tr>
                                                 <tr>
@@ -408,14 +424,6 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <kbd>dest_port</kbd>
-                                                    </td>
-                                                    <td>String(128)</td>
-                                                    <td>True</td>
-                                                    <td>Destination Port</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
                                                         <kbd>cnee_name</kbd>
                                                     </td>
                                                     <td>String(128)</td>
@@ -427,7 +435,7 @@
                                                         <kbd>cnee_contact</kbd>
                                                     </td>
                                                     <td>String(128)</td>
-                                                    <td>True</td>
+                                                    <td>Optional</td>
                                                     <td>Consignee Contact Number</td>
                                                 </tr>
                                                 <tr>
@@ -443,7 +451,7 @@
                                                         <kbd>cnee_address_province</kbd>
                                                     </td>
                                                     <td>String(128)</td>
-                                                    <td>True</td>
+                                                    <td>Optional</td>
                                                     <td>Consignee Province</td>
                                                 </tr>
                                                 <tr>
@@ -451,7 +459,7 @@
                                                         <kbd>cnee_address_city</kbd>
                                                     </td>
                                                     <td>String(128)</td>
-                                                    <td>True</td>
+                                                    <td>Optional</td>
                                                     <td>Consignee City</td>
                                                 </tr>
                                                 <tr>
@@ -459,7 +467,7 @@
                                                         <kbd>cnee_address_brgy</kbd>
                                                     </td>
                                                     <td>String(128)</td>
-                                                    <td>True</td>
+                                                    <td>Optional</td>
                                                     <td>Consignee Barangay</td>
                                                 </tr>
                                                 <tr>
@@ -471,6 +479,14 @@
                                                     <td>Consignee Address Bldg. / House Number / Street</td>
                                                 </tr>
                                                 
+                                                <tr>
+                                                    <td>
+                                                        <kbd>dest_port</kbd>
+                                                    </td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
+                                                    <td>Destination Port</td>
+                                                </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>dest_area_code</kbd>
@@ -618,7 +634,7 @@
                                                     <td>
                                                         <kbd>or_amount</kbd>
                                                     </td>
-                                                    <td>String(128)</td>
+                                                    <td>Decimal(12,2)</td>
                                                     <td>Optional</td>
                                                     <td>Official Receipt Amount. <em><b>Required.</b> If paymode is "Prepaid"</em></td>
                                                 </tr>
@@ -655,8 +671,8 @@
                                                         <kbd>cod_amount</kbd>
                                                     </td>
                                                     <td>Decimal(12,2)</td>
-                                                    <td>Optional</td>
-                                                    <td>Amount to be collected upon delivery</td>
+                                                    <td>True</td>
+                                                    <td>Amount to be collected upon delivery. Input "0" for non-cod transaction</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -738,7 +754,7 @@
                                                     </td>
                                                     <td>Number</td>
                                                     <td>True</td>
-                                                    <td>Item Quanity</td>
+                                                    <td>Item Quantity</td>
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
@@ -786,7 +802,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td>Item Length</td>
+                                                    <td>Item Length in cm</td>
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
@@ -794,7 +810,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td>Item Width</td>
+                                                    <td>Item Width in cm</td>
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
@@ -802,7 +818,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td>Item Height</td>
+                                                    <td>Item Height in cm</td>
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
@@ -861,19 +877,15 @@
             "result": "error",
             "msg": "Invalid Payload"
         }
-    </code>
-        </pre>
 
-        <pre class="bg-light">
-
-    <kbd class="bg-danger">422 Validation Error</kbd>                                
-    <code>
         {
             "result": "error",
             "msg": "Validation Error : Field encoding_date - Invalid format"
         }
     </code>
         </pre>
+
+        
                                             
         <pre class="bg-light print_page_break_before" style="font-size: 12px;">                           
             <code>
