@@ -90,6 +90,21 @@
                                                             </li>
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>v.20221107</td>
+                                                        <td>
+                                                            <li>Update fields to optional
+                                                                <ul>
+                                                                    <li>store_id</li>
+                                                                    <li>store_name</li>
+                                                                    <li>store_type</li>
+                                                                    <li>store_city</li>
+                                                                    <li>hub_code</li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><kbd>store_id</kbd> or <kbd>hub_code</kbd> must have atleast value</li>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -140,15 +155,15 @@
                                                         <kbd>store_id</kbd>
                                                     </td>
                                                     <td>String(100)</td>
-                                                    <td>True</td>
-                                                    <td>2GO Store ID</td>
+                                                    <td>Optional</td>
+                                                    <td>2GO Store ID <b>Required if hub_code is empty</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>store_name</kbd>
                                                     </td>
                                                     <td>String(100)</td>
-                                                    <td>True</td>
+                                                    <td>Optional</td>
                                                     <td>2GO Store Name</td>
                                                 </tr>
                                                 <tr>
@@ -156,7 +171,7 @@
                                                         <kbd>store_type</kbd>
                                                     </td>
                                                     <td>String(5)</td>
-                                                    <td>True</td>
+                                                    <td>Optional</td>
                                                     <td>2GO Store Type <em class="small">Options : RET, AGT, HUB</em></td>
                                                 </tr>
                                                 <tr>
@@ -164,7 +179,7 @@
                                                         <kbd>store_city</kbd>
                                                     </td>
                                                     <td>String(100)</td>
-                                                    <td>True</td>
+                                                    <td>Optional</td>
                                                     <td>2GO Store City Address</td>
                                                 </tr>
                                                 <tr>
@@ -172,8 +187,8 @@
                                                         <kbd>hub_code</kbd>
                                                     </td>
                                                     <td>String(100)</td>
-                                                    <td>True</td>
-                                                    <td>Hub Code</td>
+                                                    <td>Optional</td>
+                                                    <td><b>Required if store_id is empty</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td>

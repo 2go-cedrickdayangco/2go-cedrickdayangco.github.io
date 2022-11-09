@@ -113,6 +113,14 @@
                                                             </ul>
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>v.20221108</td>
+                                                        <td>
+                                                            <ul>
+                                                                <li><kbd>created_by</kbd> is already existing in Phase 1. Added created_by field for alignment.</li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -723,6 +731,14 @@
                                                     <td>True</td>
                                                     <td><span class="badge bg-primary">New</span> Timestamp of when the order was created</td>
                                                 </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>created_by</kbd>
+                                                    </td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
+                                                    <td><span class="badge bg-success">Update</span> User who created the transaction</td>
+                                                </tr>
                                               
                                                 <tr style="background : #8eabfa">
                                                     <td>
@@ -959,6 +975,7 @@
             "rc_parent_name" : "Express Parent",
             "rc_child_name" : "Express Child",
             "encoding_date" : "2022-05-20 22:32:32",
+            "created_by" : "jcedrickd_2go",
             "item_details" : [
                 {
                     "item_no" : 1,

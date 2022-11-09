@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre>
+Hi Dahlia, Renz and Ron
+
+Here are the recommended test cases for the FE – OIC APIs.  
+
+Thanks.
+
+1.	Positive Path
+    a.	All fields (required and non-required) are existing and populated
+    b.	All required fields are populated and non-required fields are not existing or no value
+    c.	Expected Output
+        i.	TG_PROCESSSTATUS table is populated Start and End Rows
+        ii.	Target Table/s is populated
+            1.	Fields - validate data stored
+            2.	Dest_system - blank
+            3.	Dest_status - successful
+            4.	Dest_response - Payload + Error validation
+            5.	Dest_create_datetime - current datetime
+        iii.	API returns expected error HTTP and  message.
+2.	Negative Path
+    a.	Test if a required field (need to test all required field)
+        i.	Is missing
+        ii.	Is blank
+        iii.	Invalid data type
+    b.	Expected out put
+        i.	TG_PROCESSSTATUS table is populated Start and End Rows
+        ii.	Target Table/s is populated*
+            1.	Fields - validate data stored
+            2.	Dest_system - blank
+            3.	Dest_status - failed
+            4.	Dest_response - Payload + Error validation
+            5.	Dest_create_datetime - current datetime
+ 
+            *Note: For invalid data type. Ensure the following fields are populated
+    a.	Transaction id 
+    b.	Dest_system - blank
+    c.	Dest_status - failed
+    d.	Dest_response - Payload + Error validation
+    e.	Dest_create_datetime - current datetime
+    f.	Remaining fields are blank.
+ 
+3.	API returns expected error HTTP and  message.
+    3.	Check if error notification is sent
+        i.	If Suppress Notification = n
+        ii.	If Suppress Notification != n
+    3.	Fault Scenarios
+        a.	Check if TG_PROCESSSTATUS is populated with Error is logged
+        b.	Check if error notification is sent
+            i.	If Suppress Notification = n
+            ii.	If Suppress Notification != n
+
+
+    </pre>
+</body>
+</html>

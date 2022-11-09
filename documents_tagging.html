@@ -43,7 +43,7 @@
 <body>
     <nav class="navbar navbar-light px-5" style="background : #ec008c; height: 60px;">
         <a class="navbar-brand" href="#">
-          <img src="./2GOexpress.png" height="30" alt="">
+          <img src="./../imgs/2GOexpress.png" height="30" alt="">
         </a>
         <span class="text-light">v.20220516</span>
       </nav>
@@ -56,10 +56,13 @@
                         <div class="row">
                             <div class="col-12">
 
-                               
-                                        <a id="forms_api_creation"><h4>COD and Shipping Fee Deposit API
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <a id="forms_api_creation"><h4>Customer Documents Tagging API
                                         </h4></a>
-                                    
+                                    </div>
+                                    <div class="card-body">
+                                        A tracker of completion against these requirements for all billable transactions is essential to trigger automated invoicing in Fusion
                                         
                                         <div class="bg-warning rounded p-2 mt-4">
                                             <b>Change Logs</b>
@@ -70,12 +73,8 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>v.20220921</td>
+                                                        <td>v.20220516</td>
                                                         <td>Initial Document</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>v.20221005</td>
-                                                        <td>Added trigger description</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -88,7 +87,8 @@
 
                                         <h5 class="mt-3">Triggers</h5>
                                         <div class="p-2" style="background-color: #dbefff;">
-                                            <b>COD and SF Deposit API will be triggered 12 mid-night daily</b>
+                                            1. Terminating Delivery Status - Actual tagging of courier in FarEye mobile app.<br/>
+                                            2. OPS Tagging - upload collected documents post-delivery via web app.
                                         </div>
 
                                         <h5 class="mt-3">Endpoint URL</h5>
@@ -108,187 +108,106 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <kbd>reference_no</kbd>
+                                                        <kbd>tracking_no</kbd>
                                                     </td>
-                                                    <td>String(128)</td>
+                                                    <td>String(50)</td>
                                                     <td>True</td>
-                                                    <td>System generated deposit reference number</td>
+                                                    <td>AWB Number</td>
                                                 </tr>
-                                                <tr style="background : #75b8f1">
+                                                
+                                                <tr>
                                                     <td>
-                                                        <kbd>tracking_list</kbd>
+                                                        <kbd>customer_name</kbd>
+                                                    </td>
+                                                    <td>String(255)</td>
+                                                    <td>True</td>
+                                                    <td>Customer Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>delivery_hub</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>Delivery Hub</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>rider_name</kbd>
+                                                    </td>
+                                                    <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>Delivery Rider Name</td>
+                                                </tr>
+                                                <tr style="background: #75b8f1">
+                                                    <td>
+                                                        <kbd>documents</kbd>
                                                     </td>
                                                     <td>Array</td>
                                                     <td>True</td>
-                                                    <td>List of AWBs associated with the deposit</td>
-                                                </tr>
-                                                <!-- <tr style="background : #bfe2ff">
-                                                    <td>
-                                                        <kbd>transaction_type</kbd>
-                                                    </td>
-                                                    <td>String(128)</td>
-                                                    <td>True</td>
-                                                    <td>COD(Cash-on-Delivery) or SF(Shipping Fee)</td>
-                                                </tr> -->
-                                                <tr style="background : #bfe2ff">
-                                                    <td>
-                                                        <kbd>tracking_no</kbd>
-                                                    </td>
-                                                    <td>String(128)</td>
-                                                    <td>True</td>
-                                                    <td>Tracking Number / AWB Number</td>
+                                                    <td>Wrapper for documents</td>
                                                 </tr>
                                                 <tr style="background : #bfe2ff">
                                                     <td>
-                                                        <kbd>cod_amount</kbd>
-                                                    </td>
-                                                    <td>Decimal(12,2)</td>
-                                                    <td>True</td>
-                                                    <td>Shipment COD Amount.</td>
-                                                </tr>
-                                                
-                                                <tr style="background : #bfe2ff">
-                                                    <td>
-                                                        <kbd>sf_amount</kbd>
-                                                    </td>
-                                                    <td>Decimal(12,2)</td>
-                                                    <td>True</td>
-                                                    <td>Shipping Fee</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>store_id</kbd>
-                                                    </td>
-                                                    <td>String(128)</td>
-                                                    <td>Optional</td>
-                                                    <td>2GO Store ID <b>Required if hub_code is empty</b></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>store_name</kbd>
-                                                    </td>
-                                                    <td>String(128)</td>
-                                                    <td>Optional</td>
-                                                    <td>2GO Store Name</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>store_type</kbd>
-                                                    </td>
-                                                    <td>String(128)</td>
-                                                    <td>Optional</td>
-                                                    <td>2GO Store Type <em class="small">Options : RET, AGT, HUB</em></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>hub_code</kbd>
+                                                        <kbd>doc_name</kbd>
                                                     </td>
                                                     <td>String(100)</td>
+                                                    <td>True</td>
+                                                    <td>Document Name. <em class="small">Example : Invoice</em></td>
+                                                </tr>
+                                                <tr style="background : #bfe2ff">
+                                                    <td>
+                                                        <kbd>doc_collected</kbd>
+                                                    </td>
+                                                    <td>String(1)</td>
+                                                    <td>True</td>
+                                                    <td>Document Status. <em class="small">Example : "Y" if collected. "N" if not yet collected</em></td>
+                                                </tr>
+                                                <tr style="background : #bfe2ff">
+                                                    <td>
+                                                        <kbd>doc_url</kbd>
+                                                    </td>
+                                                    <td>String(255)</td>
                                                     <td>Optional</td>
-                                                    <td><b>Required if store_id is empty</b></td>
+                                                    <td>Document URL. <em class="small"><b>Required if document is collected</b></em></td>
                                                 </tr>
-                                                
-                                                <tr>
+                                                <tr style="background : #bfe2ff">
                                                     <td>
-                                                        <kbd>cashier_id</kbd>
+                                                        <kbd>collected_date</kbd>
                                                     </td>
-                                                    <td>String(128)</td>
-                                                    <td>True</td>
-                                                    <td>2GO Cashier ID</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>cashier_name</kbd>
-                                                    </td>
-                                                    <td>String(128)</td>
-                                                    <td>True</td>
-                                                    <td>2GO Cashier Name</td>
-                                                </tr> 
-                                                <tr>
-                                                    <td>
-                                                        <kbd>deposit_bank_account</kbd>
-                                                    </td>
-                                                    <td>String(128)</td>
-                                                    <td>True</td>
-                                                    <td>Deposit Bank Account Number</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>deposit_amount</kbd>
-                                                    </td>
-                                                    <td>Decimal(12,2)</td>
-                                                    <td>True</td>
-                                                    <td>Amount Deposited</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>deposit_date</kbd>
-                                                    </td>
-                                                    <td>Datetime <br/> <em class="small">(YYYY-MM-DD)</em></td>
-                                                    <td>True</td>
-                                                    <td>Actual Deposit Date</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>deposit_slip_url</kbd>
-                                                    </td>
-                                                    <td>String(500)</td>
+                                                    <td>Datetime <br/> <em class="small">(YYYY-MM-DD HH24:mm:ss)</em></td>
                                                     <td>Optional</td>
-                                                    <td>Deposit Slip Image URL</td>
-                                                </tr>
-                                                
-                                                <tr>
-                                                    <td>
-                                                        <kbd>deposit_reference</kbd>
-                                                    </td>
-                                                    <td>String(128)</td>
-                                                    <td>True</td>
-                                                    <td>Deposit Reference Number</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <kbd>date_created</kbd>
-                                                    </td>
-                                                    <td>Datetime <br/> <em class="small">(YYYY-MM-DD HH:mm:ss)</em></td>
-                                                    <td>True</td>
-                                                    <td>Timestamp of when the entry is created</td>
+                                                    <td>Date of when the document was collected.  <em class="small"><b>Required if document is collected</b></em></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <div class="">
-                                        <h5 class="mt-5 ">Sample Payload</h5>
+                                        <h5 class="mt-5">Sample Payload</h5>
                                         <pre class="bg-light">                           
                                     <code>
         {
-            "reference_no" : "ABCD-000001",
-            "tracking_list" : [
+            "tracking_no" : "AA000001A",
+            "customer_name" : "SM Retail",
+            "delivery_hub" : "MONOH",
+            "rider_name" : "John Dela Cruz",
+            "documents" : [
                 {
-                    "tracking_no"  : "ABC123456",
-                    "cod_amount"  : 2000,
-                    "sf_amount"  : 150,
+                    "doc_name" : "Invoice",
+                    "doc_collected" : "Y",
+                    "doc_url" : "https://www.fareye.co/documents/invoice/asfas124123.jpg",
+                    "collected_date" : "2022-05-15 15:23:32"
                 },
                 {
-                    "tracking_no"  : "ABC123457",
-                    "cod_amount"  : 1500,
-                    "sf_amount"  : 200,
-                }
-            ],
-            "store_id" : "1001",
-            "store_name" : "2GO Express Double Dragon",
-            "store_type" : "RET",
-            "cashier_id" : "juandelacruz_2goph",
-            "cashier_name" : "Juan Dela Cruz",
-            "deposit_bank_account" : "1508026833",
-            "deposit_amount" : 3850,
-            "deposit_date" : "2022-09-20",
-            "deposit_slip_url" : "https://fareye.co/deposits/125123123213.jpg",
-            "deposit_reference" : "1232131223",
-            "date_created" : "2022-09-21 13:23:22",
-           
+                    "doc_name" : "Delivery Receipt",
+                    "doc_collected" : "N",
+                    "doc_url" : "",
+                    "collected_date" : ""
+                },
+            ]
         }</code>
                                 </pre>
                             </div>
-                                        <h5 class="print_page_break_before">Response Parameters</h5>
+                                        <h5 class="mt-5 print_page_break_before">Response Parameters</h5>
                                         <pre class="bg-light">
 
     <kbd class="bg-success-light text-dark">200 Success</kbd>                                
@@ -308,16 +227,6 @@
         "msg": "Invalid Payload"
     }</code>
                                 </pre>
-<pre class="bg-light">
-
-    <kbd class="bg-danger">422 Validation Error</kbd>                                
-    <code>
-    {
-        "result": "error",
-        "msg": "Validation Error : Field cod_amount - Invalid format must be decimal"
-    }
-    </code>
-</pre>
                                     </div>
                                 </div>
 
@@ -365,6 +274,8 @@
                                     </div>
                                 </div> -->
 
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
