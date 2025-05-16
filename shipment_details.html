@@ -121,6 +121,22 @@
                                                             </ul>
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>v.20221111</td>
+                                                        <td>
+                                                            <ul>
+                                                                <li><kbd>cust_short_name</kbd> is now a required field.</li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>v.20250514</td>
+                                                        <td>
+                                                            <ul>
+                                                                <li>Added new fields <kbd>rate_classification</kbd>, <kbd>business_type</kbd>, <kbd>delivery_category</kbd></li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -152,7 +168,14 @@
                                                 <th style="width: 40%;">Description</th>
                                             </thead>
                                             <tbody>
-                                                
+                                                <tr>
+                                                    <td>
+                                                        <kbd>custom_field</kbd>
+                                                    </td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
+                                                    <td>Hello</td>
+                                                </tr>
                                                 <tr>
                                                     <td>
                                                         <kbd>tracking_no</kbd>
@@ -194,7 +217,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-primary">NEW</span> Fusion Bill To Site Account Number on where the charges should be accounted.</td>
+                                                    <td>Fusion Bill To Site Account Number on where the charges should be accounted.</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -218,8 +241,8 @@
                                                         <kbd>cust_short_name</kbd>
                                                     </td>
                                                     <td>String(128)</td>
-                                                    <td>Optional</td>
-                                                    <td><span class="badge bg-danger">Phase 2</span> Customer Short Name must be existing in the Merchant Master.</td>
+                                                    <td>True</td>
+                                                    <td>Customer Short Name.</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -244,7 +267,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>Optional</td>
-                                                    <td><span class="badge bg-primary">New</span> Fusion Store Location Type : Agent-owned, 2GO Owned, etc</td>
+                                                    <td>Fusion Store Location Type : Agent-owned, 2GO Owned, etc</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -295,7 +318,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>Optional</td>
-                                                    <td><span class="badge bg-danger">Phase 2</span> Shipper Fusion Account-Bill to site Number</td>
+                                                    <td>Shipper Fusion Account-Bill to site Number</td>
                                                 </tr>
                                                 
                                                 <tr>
@@ -662,7 +685,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>Optional</td>
-                                                    <td><span class="badge bg-primary">new</span> Inbounding Hub.
+                                                    <td>Inbounding Hub.
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -671,7 +694,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>Optional</td>
-                                                    <td><span class="badge bg-primary">new</span> Destination Hub.
+                                                    <td>Destination Hub.
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -704,7 +727,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-danger">Phase 2</span> Revenue Center Code</td>
+                                                    <td>Revenue Center Code</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -712,7 +735,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-danger">Phase 2</span> Revenue Center Parent Name</td>
+                                                    <td>Revenue Center Parent Name</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -720,24 +743,48 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-danger">Phase 2</span> Revenue Center Child Name</td>
+                                                    <td>Revenue Center Child Name</td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td>
                                                         <kbd>encoding_date</kbd>
                                                     </td>
                                                     <td>Datetime<br/>
                                                     <small><b><em>(YYYY-MM-DD HH:mm:ss)</em></b></small></td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-primary">New</span> Timestamp of when the order was created</td>
-                                                </tr>
+                                                    <td>Timestamp of when the order was created</td>
+                                                </tr> -->
                                                 <tr>
                                                     <td>
                                                         <kbd>created_by</kbd>
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-success">Update</span> User who created the transaction</td>
+                                                    <td>User who created the transaction</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>rate_classification</kbd>
+                                                    </td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
+                                                    <td><span class="badge bg-primary">New</span> Rate Classification</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>business_type</kbd>
+                                                    </td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
+                                                    <td><span class="badge bg-primary">New</span> Business Type</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <kbd>delivery_category</kbd>
+                                                    </td>
+                                                    <td>String(128)</td>
+                                                    <td>True</td>
+                                                    <td><span class="badge bg-primary">New</span> Determine the serviceability of the delivery address</td>
                                                 </tr>
                                               
                                                 <tr style="background : #8eabfa">
@@ -762,7 +809,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-success">UPDATE</span> From <kbd>item_description</kbd> to <kbd>item_desc</kbd> to align with other API. Item Description</td>
+                                                    <td>From <kbd>item_description</kbd> to <kbd>item_desc</kbd> to align with other API. Item Description</td>
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
@@ -794,7 +841,7 @@
                                                     </td>
                                                     <td>String(128)</td>
                                                     <td>Optional</td>
-                                                    <td><span class="badge bg-danger">Phase 2</span> Per Line Item Customer Short Name</td>
+                                                    <td>Per Line Item Customer Short Name</td>
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
@@ -842,7 +889,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-primary">NEW</span> Volumetric Weight in kg</td>
+                                                    <td>Volumetric Weight in kg</td>
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
@@ -850,7 +897,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-primary">NEW</span> Volumetric Weight in CBM</td>
+                                                    <td>Volumetric Weight in CBM</td>
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
@@ -858,7 +905,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-primary">NEW</span> Chargeable Weight in kg</td>
+                                                    <td>Chargeable Weight in kg</td>
                                                 </tr>
                                                 <tr style="background : #b0c3f8">
                                                     <td>
@@ -866,7 +913,7 @@
                                                     </td>
                                                     <td>Decimal(12,2)</td>
                                                     <td>True</td>
-                                                    <td><span class="badge bg-primary">NEW</span> Chargeable Weight in CBM</td>
+                                                    <td>Chargeable Weight in CBM</td>
                                                 </tr>
                                                 
                                             </tbody>
@@ -896,7 +943,7 @@
 
         {
             "result": "error",
-            "msg": "Validation Error : Field encoding_date - Invalid format"
+            <!-- "msg": "Validation Error : Field encoding_date - Invalid format" -->
         }
     </code>
         </pre>
@@ -973,9 +1020,11 @@
             "mps_flg" : "Y",
             "rc_code" : "Express",
             "rc_parent_name" : "Express Parent",
-            "rc_child_name" : "Express Child",
-            "encoding_date" : "2022-05-20 22:32:32",
+            "rc_child_name" : "Express Child",<!-- "encoding_date" : "2022-05-20 22:32:32", -->
             "created_by" : "jcedrickd_2go",
+            "rate_classification" : "Day6",
+            "business_type" : "B2B",
+            "Delivery_category" : "SA"
             "item_details" : [
                 {
                     "item_no" : 1,

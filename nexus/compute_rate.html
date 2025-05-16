@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <title>2GO API Documentation</title>
+    <style>
+
+        body{
+            font-family: "Nunito", sans-serif;
+        }
+        .tgo_table{
+            font-size: 14px;
+        }
+
+        .tgo_table td{
+            padding : 20px;
+        }
+
+        .bg-success-light{
+            background : #9beba2;
+        }
+        .sticky-offset {
+            top: 60px;
+        }
+
+        .sticky_pad{
+            margin-top : 60px;
+        }
+
+        
+        .nav-link{
+            color : #222;
+        }
+
+        .bg-magenta{
+            background-color: #ec008c;
+        }
+
+        .f_italic{
+            font-style: italic;
+        }
+
+
+        @media print {
+            .print_page_break {page-break-after: always;}
+            .print_page_break_before {page-break-before: always;}
+        }
+    </style>
+</head>
+<body>
+        
+        <div class="" style="width : 1024px; margin : auto">
+            <nav class="navbar navbar-light px-3" style="background : #ec008c;">
+                <a class="navbar-brand" href="#">
+                <img src="../images/2go-logo-white.webp" height="50" alt="">
+                </a>
+            </nav>
+            
+            <div class="row mb-4 pb-4 border-bottom">
+                <div class="col-12">
+                    <h5 class="mt-5">Environment <span class="d-inline-block px-2 py-1 text-light fw-bold bg-dark">UAT</span></h5>
+               
+                    <div class="bg-light">  
+                        <span class="badge bg-magenta">base_url</span> http://222.127.101.49/2go_api/tf <br/>
+                        <span class="badge bg-magenta">ccode</span> to be provided by 2GO<br/>
+                        <span class="badge bg-magenta">ckey</span> to be provided by 2GO<br/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-5 border-bottom">
+                
+                <div class="col-12">
+                    <a id="computeRate"><h4 class="mt-3">Compute Rate API - <b><em>computeRate</em></b></h4></a>
+                    <div style="background: #EEE;" class="rounded py-2 px-4 mt-4">
+                        <b>Change Logs</b>
+                        <table class="table table-bordered border-dark table-sm small mt-2">
+                            <thead>
+                            <th>Version</th>
+                            <th>Description</th>
+                            <th>Author</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>v.20240426</td>
+                                    <td>
+                                        <ul>
+                                            <li>Added <kbd>pax_cat</kbd>, <kbd>pax_id_type</kbd>, <kbd>pax_id_no</kbd> for Terminal Fee Issuance.</li>
+                                            <li>Remove <kbd>w_meals</kbd> and <kbd>w_linen</kbd> as both are required.</li>
+                                        </ul>
+                                    </td>
+                                    <td>2GO Solutions Delivery</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h5 class="mt-5">Endpoint URL</h5>
+                    <div class="bg-light">
+
+                        <!-- 
+                            bg_primary for GET
+                            bg_success for POST 
+                        -->
+                        <span class="d-inline-block px-2 py-1 text-light fw-bold bg-primary">GET</span>
+                        <span class="badge bg-magenta">base_url</span>/computeRate.aspx
+                    </div>                    
+
+                    <h5 class="mt-5">Request Parameters</h5>
+                    <table class="table table-hover table-bordered tgo_table ">
+                        <thead class="bg-light">
+                            <th style="width: 30%;">Name</th>
+                            <th style="width: 15%;">Type</th>
+                            <th style="width: 15%;">Required</th>
+                            <th style="width: 40%;">Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <kbd>accom</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Accommodation code of the preferred travel. Accommodation value may be derived from <b><em>getAccom</em></b> <kbd>ACCO_CODE</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>vess_code</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>vessel code of the preferred travel. Vessel value may be derived from <b><em>getSched</em></b> or <b><em>getETD</em></b> <kbd>VESS_CODE</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>etd</kbd>
+                                </td>
+                                <td>Datetime</td>
+                                <td>True</td>
+                                <td>Sailing date of the preferred travel. Sailing Date value may be
+                                    derived from <b><em>getSched</em></b> or <b><em>getETD</em></b> <kbd>START_ETD</kbd> (mm/dd/yyyy hh:mi:ss
+                                    AM)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>orig</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Origin code of the preferred travel. Origin value may be derived from
+                                    <b><em>getSched</em></b> or <b><em>getETD</em></b> <kbd>ORIGIN</kbd> or  <b><em>getOrigin</em></b> <kbd>PORT_CODE</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>dest</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>destination code of the preferred travel. Destination value may be derived from <b><em>getSched</em></b> or <b><em>getETD</em></b> <kbd>Destination</kbd> or  <b><em>getDestination</em></b>
+                                    <kbd>PORT_CODE</kbd></td>
+                            </tr>
+                            <!-- <tr>
+                                <td>
+                                    <kbd>w_meals</kbd>
+                                </td>
+                                <td>True</td>
+                                <td>True</td>
+                                <td>Y if with meals <br/> N if w/out meals</td>
+                            </tr> -->
+                            <tr>
+                                <td>
+                                    <kbd>w_ins</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Y if with insurance <br/> N if w/out insurance</td>
+                            </tr>
+                            <!-- <tr>
+                                <td>
+                                    <kbd>w_linen</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Y if with linen <br/> N if w/out linen</td>
+                            </tr> -->
+                            <tr>
+                                <td>
+                                    <kbd>w_scon</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Y if with TravelLink<br/> N if w/out TravelLink</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>ooty</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Corresponding OOTY Code of user, value may be retrieved on
+                                    <b><em>getLoginDtls</em></b> <kbd>user_ooty_code</kbd></td>
+                            </tr>
+                        
+                            <!-- <tr>
+                                <td>
+                                    <kbd>age</kbd>
+                                </td>
+                                <td>String(128)</td>
+                                <td>Optional</td>
+                                <td>Updated Paymode. Allowed for CC and CS only</td>
+                            </tr> -->
+                            
+                            <tr>
+                                <td>
+                                    <kbd>disc_code</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td><b>Discount Code</b> <br/> 
+                                    ND - No Discount <br/>
+                                    SC - Senior Citizen <br/> 
+                                    ST - Student<br/> 
+                                    INF - INFANT<br/>
+                                    DABLD - disabled <br/>
+                                    CHL - child
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>tID</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Tier ID, value can be retrieved on  <b><em>getBookingClassess</em></b> <kbd>tier</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>bRate</kbd>
+                                </td>
+                                <td>Decimal</td>
+                                <td>True</td>
+                                <td>Base Rate, value can be retrieved on <b><em>getBookingClassess</em></b> <kbd>baserate</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>trate</kbd>
+                                </td>
+                                <td>Decimal</td>
+                                <td>True</td>
+                                <td>Tier Rate, value can be retrieved on <b><em>getBookingClassess</em></b> <kbd>rate</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>pax_cat</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td>
+                                    <span class="badge bg-primary">NEW</span>
+                                    Passenger Category. Default to <b>"REG"</b> if blank<br/>
+                                    REG - Regular<br/>
+                                    UP - Uniformed Personnel<br/>
+                                    SC - Senior Citizen<br/>
+                                    PWD - PWD<br/>
+                                    ST - Student<br/>
+                                    INF - Infant
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>pax_id_type</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Presented ID relative to passenger category. 
+                                    Required if <kbd>pax_cat</kbd> <b>IS NOT</b> REGULAR.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>pax_id_no</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> ID Number of presented ID. 
+                                    Required if <kbd>pax_cat</kbd> <b>IS NOT</b> REGULAR.</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    
+                    <div class="mt-5 print_page_break_before">
+                        <h5 class="">Sample Request</h5> 
+                        <pre class="bg-light px-4">
+
+<span class="badge bg-magenta">base_url</span>/computeRate.aspx?accom=SUPER&vess_code=SFX1X&etd=04/14/2024 09:00:00 AM&orig=MNL&dest=CEB&w_ins=Y
+&w_scon=N&ooty=ALUZ&disc_code=ND&tID=BRT&bRate=2087.48&trate=1677&pax_cat=sc&pax_id_type=Senior Citizen
+&pax_id_no=SC12-23957
+</pre>
+                    </div>
+
+                    
+                    <h5 class="mt-5">Response Parameters</h5>
+                        
+                    <pre class="bg-light">
+
+    <kbd class="bg-success-light text-dark">Success</kbd>                                
+                    <code>
+        {
+            "RATE_DETAILS":
+                {
+                    "ACCO_CODE": "SUPER",
+                    "BOOKING_CLASS": "BRT",
+                    "NET_FARE": "1677",
+                    "DISOUNT_CODE": "ND",
+                    "DISCOUNTED_FARE": "1677",
+                    "SECURITY_FEE": "30",
+                    "FUEL_SURCHARGE": "85.72",
+                    "INSURANCE_FEE": "20",
+                    "MEAL_FEE": "214.92",
+                    "MEAL_COUNT": "3",
+                    "LINEN_FEE": "35",
+                    "SERVICE_FEE": "267.86",
+                    "TRAVEL_LINK_FEE": "0",
+                    "VATABLE_AMT": "2330.5",
+                    "VAT_AMT": "279.66",
+                    "TERMINAL_FEE": "104.5",
+                    "TOTAL": "2714.66"
+                }
+        }
+                        </code>
+                    </pre>
+
+                    <pre class="bg-light">
+                    
+    <kbd class="bg-danger">Error</kbd>                                
+                    <code>
+        {
+            "error":"ID Type and ID No. is required for the selected passenger category"
+        }
+                        </code>
+                    </pre>
+                
+                </div>
+                
+            </div>
+
+            <div class="row mb-5 border-bottom print_page_break_before">
+                
+                <div class="col-12">
+                    <a id="forms_api_creation"><h4 class="mt-3">Reserve Booking API - <b><em>saveToEtrans</em></b></h4></a>
+                    <div style="background: #EEE;" class="rounded py-2 px-4 mt-4">
+                        <b>Change Logs</b>
+                        <table class="table table-bordered border-dark table-sm small mt-2">
+                            <thead>
+                            <th>Version</th>
+                            <th>Description</th>
+                            <th>Author</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>v.20240426</td>
+                                    <td>
+                                        <ul>
+                                            <li>Added <kbd>pax_cat</kbd>, <kbd>pax_id_type</kbd>, <kbd>pax_id_no</kbd> for Terminal Fee Issuance.</li>
+                                            <li>Remove <kbd>w_meals</kbd> and <kbd>w_linen</kbd> as both are required.</li>
+                                        </ul>
+                                    </td>
+                                    <td>2GO Solutions Delivery</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h5 class="mt-5">Endpoint URL</h5>
+                    <div class="bg-light">
+
+                        <!-- 
+                            bg_primary for GET
+                            bg_success for POST 
+                        -->
+                        <span class="d-inline-block px-2 py-1 text-light fw-bold bg-success">POST</span>
+                        <span class="badge bg-magenta">base_url</span>/saveToEtrans.aspx
+                    </div>                    
+
+                    <h5 class="mt-5">Request Parameters</h5>
+                    <table class="table table-hover table-bordered tgo_table ">
+                        <thead class="bg-light">
+                            <th style="width: 30%;">Name</th>
+                            <th style="width: 15%;">Type</th>
+                            <th style="width: 15%;">Required</th>
+                            <th style="width: 40%;">Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <kbd>ccode</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Client Code. To be provided by 2GO</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>ckey</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Client Key. To be provided by 2GO</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>rese_no</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>reservation number, can be retrieved on <b><em>getReseNo</em></b> <kbd>RESERVATION_NO</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>reit_no</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Reservation item number, count of items related to a single reservation no. A reservation can hold multiple items, these items represents each of the passenger's record.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>contact_person</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Name of person w/c the itinerary is billed to.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>contact_no</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Contact no. of the contact person w/c the itinerary is billed to.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>email</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>email address of the contact person w/c the itinerary is billed to.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>acco_code</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>accommodation code of the preferred travel. Accommodation value may be derived from <b><em>getAccom</em></b> <kbd>ACCO_CODE</kbd></kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>pax_type</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Passenger Type options : <br/>
+                                    B - Bunk<br/>
+                                    R - Room<br/>
+                                    M - Minor<br/>
+                                    F - Free
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>vess_code</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>vessel code of the preferred travel. Vessel value may be derived from <b><em>getSched</em></b> or <b><em>getETD</em></b> <kbd>VESS_CODE</kbd></kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>voyage_year</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>voyage year of the preferred travel. Voyage Year value may be derived from <b><em>getSched</em></b> or <b><em>getETD</em></b> <kbd>VOYAGE_YEAR</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>voyage_no</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>voyage number of the preferred travel. Voyage Number value may be derived from <b><em>getSched</em></b> or <b><em>getETD</em></b> <kbd>VOYAGE_NO</kbd>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>orig</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>origin code of the preferred travel. Origin value may be derived from
+                                    <b><em>getOrigin</em></b> <kbd>PORT_CODE</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>dest</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>destination code of the preferred travel. Destination value may be derived from <b><em>getDestination</em></b> <kbd>PORT_CODE</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>etd</kbd>
+                                </td>
+                                <td>Datetime</td>
+                                <td>True</td>
+                                <td>sailing date of the preferred travel. Sailing Date value may be
+                                    derived from <b><em>getSched</em></b> or <b><em>getETD</em></b> <kbd>START_ETD</kbd> (mm/dd/yyyy hh:mi:ss
+                                    AM)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>eta</kbd>
+                                </td>
+                                <td>Datetime</td>
+                                <td>True</td>
+                                <td>
+                                    Arrival date of the preferred travel. Arrival Date value may be
+                                    derived from <b><em>getSched</em></b> or <b><em>getETD</em></b> <kbd>END_ETA</kbd> (mm/dd/yyyy hh:mi:ss
+                                    AM)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>colo_code</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>color code, retrievable on <b><em>getBunks</em></b> <kbd>colo_code</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>cluster_no</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>cluster number, retrievable on <b><em>getBunks</em></b> <kbd>cluster_no</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>alpha</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Alpha Code, retrievable on <b><em>getBunks</em></b> <kbd>alpha</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>parent_reit</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td>Parent reservation item no. Provide item no. of parent reservation number, applicable for Room accommodation for free passenger and for Minor/Infant Passenger</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>l_name</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Passenger Last Name - Must match passenger Valid ID</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>f_name</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Passenger First Name - Must match passenger Valid ID</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>mid_in</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Passenger Middle Initial</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>gender</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Passenger gender : <br/>
+                                    M - Male<br/>
+                                    F - Female
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>age</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Passenger Age</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>address1</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Passenger Home Address</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>tID</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Tier ID,value can be retrieved on <b><em>getBookingClassess</em></b> <TIER></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>disc_code</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td><b>Discount Code</b> <br/> 
+                                    ND - No Discount <br/>
+                                    SC - Senior Citizen <br/> 
+                                    ST - Student<br/> 
+                                    INF - INFANT<br/>
+                                    DABLD - disabled <br/>
+                                    CHL - child
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>bRate</kbd>
+                                </td>
+                                <td>Decimal</td>
+                                <td>True</td>
+                                <td>Base Rate,value can be retrieved on <b><em>getBookingClassess</em></b>
+                                    <BASERATE></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>trate</kbd>
+                                </td>
+                                <td>Decimal</td>
+                                <td>True</td>
+                                <td>Tier Rate,value can be retrieved on <b><em>getBookingClassess</em></b> <RATE>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>SC_ID</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td>senior citizen ID. Replace w/ “x” if not applicable</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>co_name</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>company name. Replace w/ “x” if not applicable</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>co_add</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>company address. Replace w/ “x” if not applicable</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>co_tin</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Company TIN. Replace w/ “x” if not applicable</td>
+                            </tr>
+                            <!-- <tr>
+                                <td>
+                                    <kbd>w_meals</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td>indicate <Y> if with meals or <N> if w/out meals *should always be Y</td>
+                            </tr> -->
+                            <tr>
+                                <td>
+                                    <kbd>w_ins</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>indicate <Y> if with insurance or <N> if w/out insurance</td>
+                            </tr>
+                            <!-- <tr>
+                                <td>
+                                    <kbd>w_linen</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td>indicate <Y> if with linen or <N> if w/out linen *should always be Y</td>
+                            </tr> -->
+                            
+                            <tr>
+                                <td>
+                                    <kbd>pax_cat</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td>
+                                    <span class="badge bg-primary">NEW</span>
+                                    Passenger Category. Default to <b>"REG"</b> if blank<br/>
+                                    REG - Regular<br/>
+                                    UP - Uniformed Personnel<br/>
+                                    SC - Senior Citizen<br/>
+                                    PWD - PWD<br/>
+                                    ST - Student<br/>
+                                    INF - Infant
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>pax_id_type</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Presented ID relative to passenger category. 
+                                    Required if <kbd>pax_cat</kbd> <b>IS NOT</b> regular.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>pax_id_no</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> ID Number of presented ID. 
+                                    Required if <kbd>pax_cat</kbd> <b>IS NOT</b> regular.</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    
+                    <div class="mt-5 print_page_break_before">
+                        <h5 class="">Sample Request</h5> 
+                        <pre class="bg-light px-4">
+
+<span class="badge bg-magenta">base_url</span>/saveToEtrans.aspx?ccode=<span class="badge bg-magenta">ccode</span>&ckey=<span class="badge bg-magenta">ckey</span>&rese_no=7000003803&reit_no=1&contact_person=x&
+contact_no=x&acco_code=SUPER&pax_type=B&vess_code=SFX1&voyage_year=2024&voyage_no=30&orig=MNL&dest=CEB
+&etd=04/14/2024 09:00:00 AM&eta=4/15/2024 7:15:00 AM&colo_code=R&cluster_no=3&alpha=G&parent_reit=&l_name=CURRY&f_name=STEPH
+&mid_in=&gender=M&age=25&address1=GOLDEN STATE&tID=PFA&bRate=2087.48&trate=1677.00&SC_ID=x&co_name=x&co_add=x
+&email=jeric_angelo_obille@2go.com.ph&w_ins=Y&pax_cat=sc&pax_id_type=SCID&pax_id_no=152325522
+
+</pre>
+                    </div>
+
+                    
+                    <h5 class="mt-5">Sample Response</h5>
+                        
+                    <pre class="bg-light">
+
+    <kbd class="bg-success-light text-dark">Success</kbd>                                
+                    <code>
+        {
+            "INSERT_RESULT": "SAVE SUCCESS"
+        }
+                        </code>
+                    </pre>
+
+                    <pre class="bg-light">
+                    
+    <kbd class="bg-danger">Error</kbd>                                
+                    <code>
+        {
+            "INSERT_RESULT": "ERROR ON PARAMETERS"
+        }
+                        </code>
+                    </pre>
+                
+                </div>
+                
+            </div>
+
+            <div class="row mb-5 border-bottom print_page_break_before">
+                
+                <div class="col-12">
+                    <a id="forms_api_creation"><h4 class="mt-3">Process Payment - <b><em>processPayment</em></b></h4></a>
+                    <div style="background: #EEE;" class="rounded py-2 px-4 mt-4">
+                        <b>Change Logs</b>
+                        <table class="table table-bordered border-dark table-sm small mt-2">
+                            <thead>
+                            <th>Version</th>
+                            <th>Description</th>
+                            <th>Author</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>v.20240426</td>
+                                    <td>Added <kbd>pax_cat</kbd>, <kbd>pax_id_type</kbd>, <kbd>pax_id_no</kbd> for Terminal Fee Issuance. Remove <kbd>w_meals</kbd> and <kbd>w_linen</kbd> as both are required.</td>
+                                    <td>2GO Solutions Delivery</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h5 class="mt-5">Endpoint URL</h5>
+                    <div class="bg-light">
+
+                        <!-- 
+                            bg_primary for GET
+                            bg_success for POST 
+                        -->
+                        <span class="d-inline-block px-2 py-1 text-light fw-bold bg-success">POST</span>
+                        <span class="badge bg-magenta">base_url</span>/processPayment.aspx
+                    </div>                    
+
+                    <h5 class="mt-5">Request Parameters</h5>
+                    <table class="table table-hover table-bordered tgo_table ">
+                        <thead class="bg-light">
+                            <th style="width: 30%;">Name</th>
+                            <th style="width: 15%;">Type</th>
+                            <th style="width: 15%;">Required</th>
+                            <th style="width: 40%;">Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <kbd>ccode</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Client Code. To be provided by 2GO</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>ckey</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>Client Key. To be provided by 2GO</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>rese_no</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>True</td>
+                                <td>reservation number, can be retrieved on getReseNo <kbd>RESERVATION_NO</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>tender_type</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Tender Type.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>tender_subtype</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Tender Sub-type.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>ref_no_1</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Reference Number 1. Free text</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>ref_no_2</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Reference Number 2. Free text</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>ref_no_3</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Reference Number 3. Free text</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>ref_no_4</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Reference Number 4. Free text</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>ref_no_5</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Reference Number 5. Free text</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>remarks_1</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Remarks 1. Free text</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <kbd>remarks_2</kbd>
+                                </td>
+                                <td>String</td>
+                                <td>Optional</td>
+                                <td><span class="badge bg-primary">NEW</span> Remarks 2. Free text</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    
+                    <div class="mt-5 print_page_break_before">
+                        <h5 class="">Sample Request</h5> 
+                        <pre class="bg-light px-4">
+
+<span class="badge bg-magenta">base_url</span>/processPayment.aspx?ccode=<span class="badge bg-magenta">ccode</span>&ckey=<span class="badge bg-magenta">ckey</span>&rese_no=7000003803&tender_type=QRPH&tender_subtype=GCASH&
+ref_no_1=985231&ref_no_2=QRPH_552312&remarks_1=QRPH_GCASH_66342
+
+</pre>
+                    </div>
+
+                    
+                    <h5 class="mt-5">Sample Response</h5>
+                        
+                    <pre class="bg-light">
+
+    <kbd class="bg-success-light text-dark">Success</kbd>                                
+                    <code>
+        {
+            "INSERT_RESULT": "SAVE SUCCESS"
+        }
+                        </code>
+                    </pre>
+
+                    <pre class="bg-light">
+                    
+    <kbd class="bg-danger">Error</kbd>                                
+                    <code>
+        {
+            "INSERT_RESULT": "ERROR ON PARAMETERS"
+        }
+                        </code>
+                    </pre>
+                
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            $(function(){
+                var divId;
+                $('.nav-link').click(function(){    
+                    
+                    divId = $(this).attr('href');
+                    console.log(divId);
+                    $('html, body').animate({
+                    scrollTop: $(divId).offset().top - 80
+                    }, 100);
+                });
+                
+            })
+        </script>
+</body>
+</html>
