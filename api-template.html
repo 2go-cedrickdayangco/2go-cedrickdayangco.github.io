@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>API Documentation Template</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink: #0f0e0c;
+      --paper: #f5f2ec;
+      --cream: #ede9e0;
+      --accent: #c84b2f;
+      --accent-muted: #e8d5d0;
+      --green: #2d6a4f;
+      --green-bg: #d8eadf;
+      --blue: #1b4f8a;
+      --blue-bg: #dce8f5;
+      --yellow: #a67c00;
+      --yellow-bg: #fdf3d0;
+      --border: #d4cfc4;
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+      --display: 'Fraunces', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    nav {
+      width: 260px;
+      min-width: 260px;
+      background: var(--ink);
+      color: #e8e4dc;
+      padding: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-brand {
+      padding: 28px 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-brand .api-name {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      display: block;
+    }
+
+    .nav-brand .api-version {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .nav-section {
+      padding: 20px 0 8px;
+    }
+
+    .nav-section-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      padding: 0 24px 8px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 24px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 300;
+      transition: all 0.15s;
+      border-left: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+      border-left-color: var(--accent);
+    }
+
+    .method-badge {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-get    { background: var(--blue); color: #fff; }
+    .badge-post   { background: var(--green); color: #fff; }
+    .badge-put    { background: #7a4e1e; color: #fff; }
+    .badge-delete { background: var(--accent); color: #fff; }
+    .badge-patch  { background: #5a3d7a; color: #fff; }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      flex: 1;
+      max-width: 860px;
+      padding: 56px 64px 100px;
+      overflow-x: hidden;
+    }
+
+    /* ── EDITABLE FIELDS ── */
+    [contenteditable="true"] {
+      outline: none;
+      border-radius: 3px;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    [contenteditable="true"]:hover {
+      background: rgba(200, 75, 47, 0.05);
+    }
+
+    [contenteditable="true"]:focus {
+      background: rgba(200, 75, 47, 0.08);
+      box-shadow: 0 0 0 2px rgba(200, 75, 47, 0.25);
+    }
+
+    /* ── SECTIONS ── */
+    .doc-section {
+      margin-bottom: 72px;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .doc-section:nth-child(2) { animation-delay: 0.05s; }
+    .doc-section:nth-child(3) { animation-delay: 0.10s; }
+    .doc-section:nth-child(4) { animation-delay: 0.15s; }
+    .doc-section:nth-child(5) { animation-delay: 0.20s; }
+
+    .page-title {
+      font-family: var(--display);
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .page-subtitle {
+      font-size: 17px;
+      font-weight: 300;
+      color: #5a5650;
+      max-width: 580px;
+      line-height: 1.65;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    h3 {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #7a756e;
+      margin: 28px 0 12px;
+    }
+
+    p {
+      color: #3d3a35;
+      margin-bottom: 12px;
+    }
+
+    /* ── ENDPOINT CARD ── */
+    .endpoint-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      background: #fff;
+    }
+
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .endpoint-method {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .endpoint-path {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      flex: 1;
+    }
+
+    .endpoint-summary {
+      font-size: 13px;
+      color: #6e6860;
+    }
+
+    .endpoint-body {
+      padding: 20px;
+    }
+
+    .endpoint-description {
+      font-size: 14px;
+      color: #4a4640;
+      margin-bottom: 20px;
+      line-height: 1.65;
+    }
+
+    /* ── TABLES ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-top: 8px;
+    }
+
+    thead tr {
+      background: var(--cream);
+    }
+
+    th {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7a756e;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #ede9e0;
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(245, 242, 236, 0.6); }
+
+    tbody tr[contenteditable="true"] {
+      cursor: text;
+    }
+
+    .add-row-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--accent-muted);
+      border: 1px dashed var(--accent);
+      border-radius: 5px;
+      padding: 8px 14px;
+      margin-top: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .add-row-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-style: solid;
+    }
+
+    /* ── SAVE BUTTON ── */
+    .save-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      padding: 14px 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(200, 75, 47, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1000;
+    }
+
+    .save-btn:hover {
+      background: #b03d23;
+      box-shadow: 0 6px 16px rgba(200, 75, 47, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .save-btn:active {
+      transform: translateY(0);
+    }
+
+    .save-icon {
+      font-size: 16px;
+    }
+
+    .param-name {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--blue);
+    }
+
+    .param-type {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--green);
+    }
+
+    .success-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      background: var(--green);
+      color: #FFF;
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+
+    .required-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      background: var(--accent-muted);
+      color: var(--accent);
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+
+    .optional-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      background: var(--cream);
+      color: #8a8478;
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+
+    /* ── CODE BLOCKS ── */
+    .code-block {
+      background: var(--ink);
+      color: #e8e4dc;
+      border-radius: 7px;
+      overflow: hidden;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .code-lang {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .copy-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      background: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 3px 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .copy-btn:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .code-block pre {
+      padding: 18px 20px;
+      overflow-x: auto;
+      line-height: 1.6;
+      font-family: var(--mono);
+    }
+
+    .code-block code { font-family: var(--mono); }
+
+    .code-block pre[contenteditable="true"] {
+      outline: none;
+      min-height: 60px;
+    }
+
+    .code-block pre[contenteditable="true"]:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .code-block pre[contenteditable="true"]:focus {
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 0 0 2px rgba(200, 75, 47, 0.3);
+    }
+
+    /* Syntax colors */
+    .kw  { color: #c084fc; }
+    .str { color: #86efac; }
+    .num { color: #fbbf24; }
+    .key { color: #93c5fd; }
+    .cmt { color: #6b7280; font-style: italic; }
+    .fn  { color: #f9a8d4; }
+
+    /* ── RESPONSE BADGES ── */
+    .response-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .response-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+    }
+
+    .response-item.success { background: var(--green-bg); border-color: #a3d9bc; }
+    .response-item.error   { background: var(--accent-muted); border-color: #e8b8ae; }
+    .response-item.info    { background: var(--blue-bg); border-color: #aac8e8; }
+
+    .response-code {
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 500;
+      min-width: 40px;
+    }
+
+    .success .response-code { color: var(--green); }
+    .error   .response-code { color: var(--accent); }
+    .info    .response-code { color: var(--blue); }
+
+    .response-desc { font-size: 13.5px; color: #3d3a35; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      display: flex;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 7px;
+      margin: 20px 0;
+      border: 1px solid transparent;
+    }
+
+    .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .callout-body { font-size: 14px; line-height: 1.6; }
+    .callout.note    { background: var(--blue-bg);   border-color: #aac8e8; }
+    .callout.warning { background: var(--yellow-bg); border-color: #e0c870; }
+    .callout.danger  { background: var(--accent-muted); border-color: #e0a898; }
+
+    /* ── BASE URL CHIP ── */
+    .base-url-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ink);
+      color: #e8e4dc;
+      font-family: var(--mono);
+      font-size: 13px;
+      padding: 10px 18px;
+      border-radius: 7px;
+      margin-top: 12px;
+    }
+
+    .base-url-chip .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── EDIT HINT ── */
+    .edit-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--accent-muted);
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 32px;
+    }
+
+    /* ── AUTH TAG ── */
+    .auth-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: var(--yellow-bg);
+      color: var(--yellow);
+      border: 1px solid #e0c870;
+    }
+
+    /* ── SCROLLBAR ── */
+    nav::-webkit-scrollbar { width: 4px; }
+    nav::-webkit-scrollbar-track { background: transparent; }
+    nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+    /* ══════════════════════════════════════
+       PDF PRINT STYLES
+    ═══════════════════════════════════════ */
+    @media print {
+      @page {
+        size: A4;
+        margin: 1.2cm 1.2cm 1.5cm 1.2cm;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+
+      body {
+        display: block;
+        background: white;
+        font-size: 9.5pt;
+        line-height: 1.4;
+      }
+
+      /* Hide sidebar entirely in print */
+      nav {
+        display: none !important;
+      }
+
+      main {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      /* Remove animations and tighten spacing */
+      .doc-section {
+        animation: none;
+        margin-bottom: 16px;
+      }
+
+      /* Page breaks */
+      h2 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+        margin-top: 14px;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+      }
+
+      h3 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+        margin: 10px 0 6px;
+      }
+
+      .endpoint-card {
+        page-break-inside: avoid;
+        margin-bottom: 14px;
+      }
+
+      .endpoint-header {
+        padding: 8px 12px;
+      }
+
+      .endpoint-body {
+        padding: 10px 14px;
+      }
+
+      .endpoint-description {
+        margin-bottom: 10px;
+      }
+
+      .code-block {
+        page-break-inside: avoid;
+        border: 1px solid var(--border);
+        margin: 8px 0;
+      }
+
+      .code-block pre {
+        padding: 10px 12px;
+      }
+
+      table {
+        page-break-inside: avoid;
+        font-size: 8.5pt;
+        margin-top: 4px;
+      }
+
+      th {
+        padding: 6px 10px;
+        font-size: 8pt;
+      }
+
+      td {
+        padding: 5px 10px;
+      }
+
+      .callout {
+        page-break-inside: avoid;
+        padding: 10px 14px;
+        margin: 10px 0;
+      }
+
+      .response-list {
+        gap: 6px;
+      }
+
+      .response-item {
+        padding: 8px 12px;
+      }
+
+      /* Hide interactive elements */
+      .edit-hint,
+      .add-row-btn,
+      .save-btn,
+      .copy-btn {
+        display: none !important;
+      }
+
+      .code-block pre[contenteditable="true"]:hover,
+      .code-block pre[contenteditable="true"]:focus {
+        background: none;
+        box-shadow: none;
+      }
+
+      [contenteditable="true"] {
+        cursor: default;
+      }
+
+      [contenteditable="true"]:hover,
+      [contenteditable="true"]:focus {
+        background: none;
+        box-shadow: none;
+      }
+
+      /* Ensure backgrounds print */
+      .endpoint-header,
+      .code-block,
+      .code-header,
+      thead tr,
+      .callout,
+      .response-item,
+      .base-url-chip {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Tighter font sizes for print */
+      .page-title {
+        font-size: 22pt;
+        margin-bottom: 8px;
+      }
+
+      .page-subtitle {
+        font-size: 10pt;
+        margin-bottom: 8px;
+      }
+
+      h2 {
+        font-size: 15pt;
+      }
+
+      h3 {
+        font-size: 9pt;
+      }
+
+      p {
+        margin-bottom: 6px;
+      }
+
+      p, td, .endpoint-description {
+        font-size: 9pt;
+      }
+
+      .code-block pre {
+        font-size: 7.5pt;
+        line-height: 1.35;
+      }
+
+      .code-header {
+        padding: 6px 12px;
+      }
+
+      .base-url-chip {
+        padding: 6px 12px;
+        font-size: 11px;
+        margin-top: 6px;
+      }
+
+      /* Remove whitespace */
+      .divider {
+        margin: 12px 0;
+      }
+
+      hr.divider {
+        margin: 10px 0;
+      }
+
+      /* Ensure links show URLs in print */
+      a[href^="http"]:after {
+        content: " (" attr(href) ")";
+        font-size: 7.5pt;
+        color: #666;
+      }
+
+      .nav-link[href^="#"]:after {
+        content: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     SIDEBAR NAVIGATION
+═══════════════════════════════════════ -->
+<nav>
+  <div class="nav-brand">
+    <span class="api-name" contenteditable="true">2GO Billing API</span>
+    <span class="api-version" contenteditable="true">v2.0.0</span>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Overview</div>
+    <a class="nav-link active" href="#introduction">Introduction</a>
+    <a class="nav-link" href="#authentication">Authentication</a>
+    <a class="nav-link" href="#errors">Errors & Responses</a>
+    <!-- <a class="nav-link" href="#rate-limits">Rate Limiting</a> -->
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Endpoints</div>
+    <a class="nav-link" href="#ship-details">
+      <span class="method-badge badge-post">POST</span> Shipment Details w/ Charges
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-title">Resources</div>
+    <a class="nav-link" href="#changelog">Changelog</a>
+    <!-- <a class="nav-link" href="#sdks">SDKs & Libraries</a> -->
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     MAIN DOCUMENTATION
+═══════════════════════════════════════ -->
+<main>
+
+  <div class="edit-hint">
+    ✎ Click any text to edit — all fields are live-editable
+  </div>
+
+  <!-- ── INTRODUCTION ── -->
+  <section class="doc-section" id="introduction">
+    <h1 class="page-title" contenteditable="true">API Reference for 2GO AR Billing</h1>
+    <p class="page-subtitle" contenteditable="true">
+      Use this reference when building AR Billing as these API will be pushed to AR Billing Platform.
+    </p>
+
+    <hr class="divider"/>
+
+    <h3>Base URL</h3>
+    <div class="base-url-chip">
+      <span class="label">Base</span>
+      <span contenteditable="true">https://api.yourservice.com/api</span>
+    </div>
+
+    <div class="callout note" style="margin-top: 24px;">
+      <span class="callout-icon">ℹ</span>
+      <div class="callout-body" contenteditable="true">
+        All API requests must be made over <strong>HTTPS</strong>. Calls made over plain HTTP will be rejected. JSON is the only supported request and response format.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── AUTHENTICATION ── -->
+  <section class="doc-section" id="authentication">
+    <h2>Authentication</h2>
+    <p contenteditable="true">
+      For discussion.
+      <!-- The API uses <strong>Bearer token authentication</strong>. Include your API key in the Authorization header of every request. You can generate and manage API keys from your dashboard settings. -->
+    </p>
+
+    <!-- <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">HTTP Header</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+      <pre><code><span class="key">Authorization</span>: <span class="str">Bearer YOUR_API_KEY</span></code></pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">cURL Example</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+      <pre><code><span class="fn">curl</span> -X GET \
+  <span class="str">"https://api.yourservice.com/v2/users"</span> \
+  -H <span class="str">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -H <span class="str">"Content-Type: application/json"</span></code></pre>
+    </div>
+
+    <div class="callout warning">
+      <span class="callout-icon">⚠</span>
+      <div class="callout-body" contenteditable="true">
+        Never expose your API key in client-side code or public repositories. Rotate your key immediately if it is compromised.
+      </div>
+    </div> -->
+  </section>
+
+  <!-- ── LIST USERS ── -->
+  <section class="doc-section" id="ship-details">
+    <h2>Endpoints</h2>
+
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="endpoint-method badge-post" style=";color:#fff;font-family:var(--mono);font-size:12px;padding:5px 12px;border-radius:5px;text-transform:uppercase;letter-spacing:0.05em;">POST</span>
+        <span class="endpoint-path" contenteditable="true">/shipment_details_final</span>
+        <span class="auth-tag">Auth required</span>
+      </div>
+      <div class="endpoint-body">
+        <p class="endpoint-description" contenteditable="true">
+          Trigger will be upon receiving of terminating status : <span class="success-badge">DEL</span>, <span class="success-badge">RTS</span>, <span class="success-badge">RTC</span>, <span class="success-badge">WFC</span>
+        <h3>Request Body</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody id="query-params-tbody">
+            <tr>
+              <td><span class="param-name" contenteditable="true">awb_no</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Unique identification of the transaction</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">account_no</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Account number to bill the transaction</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">service_type</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">DD - Door to Door<br>PP - Pier to Pier<br>AA - Airport to Airport<br>Any combination<br></td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">paymode</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">PP - Prepaid<br>FC - Freight Collect<br>CS - Collect Shipper<br>CC - Collect Consignee<br></td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">orig_zone</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Origin Zone</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">orig_port</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Origin Port</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">orig_area_code</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Origin Area Code</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">dest_port</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Destination Port</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">dest_area_code</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Destination Area Code</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">cnee_name</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Consignee Name</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">cod_amount</span></td>
+              <td><span class="param-type" contenteditable="true">decimal</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Cash-on-Delivery Amount</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">declared_value</span></td>
+              <td><span class="param-type" contenteditable="true">decimal</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Shipment Declared Value</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">delivery_category</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">SA - Serviceable Area<br/>OTD - Out of Town Delivery<br/>NS - Not Serviceable</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">rc_code</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Revenue Center Code</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">rc_parent</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Revenue Center Parent : Express, Forwarding</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">rc_child</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Revenue Center Child Name</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">business_type</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Business Type</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">pickup_date</span></td>
+              <td><span class="param-type" contenteditable="true">date</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Pickup Date</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">attachment</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="optional-badge" contenteditable="true">optional</span></td>
+              <td contenteditable="true">Attachment</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">cust_ref_1</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="optional-badge" contenteditable="true">optional</span></td>
+              <td contenteditable="true">Customer Reference 1</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">cust_ref_2</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="optional-badge" contenteditable="true">optional</span></td>
+              <td contenteditable="true">Customer Reference 2</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">cust_ref_3</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="optional-badge" contenteditable="true">optional</span></td>
+              <td contenteditable="true">Customer Reference 3</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">cust_ref_4</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="optional-badge" contenteditable="true">optional</span></td>
+              <td contenteditable="true">Customer Reference 4</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">contract_id</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="optional-badge" contenteditable="true">optional</span></td>
+              <td contenteditable="true">Contract ID</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true">contract_status</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="optional-badge" contenteditable="true">optional</span></td>
+              <td contenteditable="true">Contract Status</td>
+            </tr>
+            <tr style="background: #d3f3c8;">
+              <td><span class="param-name" contenteditable="true">item_details</span></td>
+              <td><span class="param-type" contenteditable="true">array</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Wrapper for the list of item details</td>
+            </tr>
+            <tr style="background: #f5fff1;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">item_no</span></td>
+              <td><span class="param-type" contenteditable="true">integer</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Item Number</td>
+            </tr>
+            <tr style="background: #f5fff1;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">item_desc</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Item Description</td>
+            </tr>
+            <tr style="background: #f5fff1;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">item_qty</span></td>
+              <td><span class="param-type" contenteditable="true">integer</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Item Quantity</td>
+            </tr>
+            <tr style="background: #f5fff1;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">package_code</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Packaging Code</td>
+            </tr>
+            <tr style="background: #f5fff1;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">commodity_code</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Commodity Code</td>
+            </tr>
+            <tr style="background: #f5fff1;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">item_weight</span></td>
+              <td><span class="param-type" contenteditable="true">decimal</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Item Weight in kg</td>
+            </tr>
+            <tr style="background: #f5fff1;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">item_length</span></td>
+              <td><span class="param-type" contenteditable="true">decimal</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Item Length in meter</td>
+            </tr>
+            <tr style="background: #f5fff1;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">item_width</span></td>
+              <td><span class="param-type" contenteditable="true">decimal</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Item Width in meter</td>
+            </tr>
+            <tr style="background: #f5fff1;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">item_height</span></td>
+              <td><span class="param-type" contenteditable="true">decimal</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Item Height in meter</td>
+            </tr>
+            <tr style="background: #f5fff1;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">block_measurement</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Block Measurement</td>
+            </tr>
+            <tr>
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">rate_id</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Rate Card ID</td>
+            </tr>
+            <tr style=" background: #979cff;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 8px;">charges_details</span></td>
+              <td><span class="param-type" contenteditable="true">array</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Charge Details Wrapper</td>
+            </tr>
+            <tr style="background: #b8bbf8;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 15px;">charge_name</span></td>
+              <td><span class="param-type" contenteditable="true">string</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Name of charge</td>
+            </tr>
+            <tr style="background: #b8bbf8;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 15px;">charge_qty</span></td>
+              <td><span class="param-type" contenteditable="true">integer</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Quantity of charge</td>
+            </tr>
+            <tr style="background: #b8bbf8;">
+              <td><span class="param-name" contenteditable="true" style="padding-left: 15px;">charge_amount</span></td>
+              <td><span class="param-type" contenteditable="true">decimal</span></td>
+              <td><span class="required-badge" contenteditable="true">required</span></td>
+              <td contenteditable="true">Total amount of charges</td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="add-row-btn" onclick="addParamRow('query-params-tbody', 'optional')">+ Add Parameter</button>
+
+        <h3>Response</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">JSON Response</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre contenteditable="true"><code>{
+    <span class="key">awb_no</span>: <span class="str">"AA000001A"</span>,
+    <span class="key">account_no</span>: <span class="str">"2025101010"</span>,
+    <span class="key">service_type</span>: <span class="str">"DD"</span>,
+    <span class="key">paymode</span>: <span class="str">"CS"</span>,
+    <span class="key">orig_port</span>: <span class="str">"MNL"</span>,
+    <span class="key">orig_area_code</span>: <span class="str">"P1302"</span>,
+    <span class="key">dest_port</span>: <span class="str">"CEB"</span>,
+    <span class="key">dest_area_code</span>: <span class="str">"R704"</span>,
+    <span class="key">cnee_name</span>: <span class="str">"Juan Dela Cruz"</span>,
+    <span class="key">cod_amount</span>: <span class="str">"2500.00"</span>,
+    <span class="key">declared_value</span>: <span class="str">"2500.00"</span>,
+    <span class="key">delivery_category</span>: <span class="str">"SA"</span>,
+    <span class="key">rc_code</span>: <span class="str">"2203"</span>,
+    <span class="key">rc_parent</span>: <span class="str">"Forwarding"</span>,
+    <span class="key">rc_child</span>: <span class="str">"Domestic Sea"</span>,
+    <span class="key">business_type</span>: <span class="str">"B2C"</span>,
+    <span class="key">pickup_date</span>: <span class="str">"2026-03-15"</span>,
+    <span class="key">attachment</span>: <span class="str">"CUST123456789"</span>,
+    <span class="key">cust_ref_1</span>: <span class="str">"PO223412"</span>,
+    <span class="key">cust_ref_2</span>: <span class="str">""</span>,
+    <span class="key">cust_ref_3</span>: <span class="str">""</span>,
+    <span class="key">cust_ref_4</span>: <span class="str">""</span>,
+    <span class="key">contract_id</span>: <span class="str">"256"</span>,
+    <span class="key">contract_status</span>: <span class="str">"Active"</span>,
+    <span class="key">item_details</span>: <span class="str"></span>[
+      {
+        <span class="key">item_no</span>: <span class="str">"1"</span>,
+        <span class="key">item_desc</span>: <span class="str">"Car Parts"</span>,
+        <span class="key">item_qty</span>: <span class="str">"1"</span>,
+        <span class="key">package_code</span>: <span class="str">"GCR"</span>,
+        <span class="key">commodity_code</span>: <span class="str">"General Cargo"</span>,
+        <span class="key">item_weight</span>: <span class="str">"10.00"</span>,
+        <span class="key">item_length</span>: <span class="str">"25.00"</span>,
+        <span class="key">item_width</span>: <span class="str">"25.00"</span>,
+        <span class="key">item_height</span>: <span class="str">"25.00"</span>,
+        <span class="key">block_measurement</span>: <span class="str">"N"</span>,
+        <span class="key">rate_id</span>: <span class="str">"1002"</span>
+      }
+    ],
+    <span class="key">charges_details</span>: <span class="str"></span>[
+      {
+        <span class="key">charge_name</span>: <span class="str">"Weight Charge"</span>,
+        <span class="key">charge_qty</span>: <span class="str">1</span>,
+        <span class="key">charge_amount</span>: <span class="str">"250.00"</span>
+      },
+      {
+        <span class="key">charge_name</span>: <span class="str">"Valuation Charge"</span>,
+        <span class="key">charge_qty</span>: <span class="str">1</span>,
+        <span class="key">charge_amount</span>: <span class="str">"25.00"</span>
+      }
+    ]
+}
+  </code></pre>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── ERRORS ── -->
+  <section class="doc-section" id="errors">
+    <h2>Errors &amp; Responses</h2>
+    <p contenteditable="true">
+      The API uses conventional HTTP status codes to indicate the success or failure of requests. Errors return a JSON body with a <code>code</code> and human-readable <code>message</code>.
+    </p>
+
+    <div class="response-list">
+      <div class="response-item success">
+        <span class="response-code">200</span>
+        <span class="response-desc" contenteditable="true"><strong>OK</strong> — The request succeeded and a resource was returned.</span>
+      </div>
+      <div class="response-item success">
+        <span class="response-code">201</span>
+        <span class="response-desc" contenteditable="true"><strong>Created</strong> — A new resource was successfully created.</span>
+      </div>
+      <div class="response-item info">
+        <span class="response-code">400</span>
+        <span class="response-desc" contenteditable="true"><strong>Bad Request</strong> — The request was malformed or missing required parameters.</span>
+      </div>
+      <div class="response-item error">
+        <span class="response-code">401</span>
+        <span class="response-desc" contenteditable="true"><strong>Unauthorized</strong> — No valid API key provided.</span>
+      </div>
+      <div class="response-item error">
+        <span class="response-code">403</span>
+        <span class="response-desc" contenteditable="true"><strong>Forbidden</strong> — The API key doesn't have permission to perform this action.</span>
+      </div>
+      <div class="response-item error">
+        <span class="response-code">404</span>
+        <span class="response-desc" contenteditable="true"><strong>Not Found</strong> — The requested resource does not exist.</span>
+      </div>
+      <div class="response-item error">
+        <span class="response-code">429</span>
+        <span class="response-desc" contenteditable="true"><strong>Too Many Requests</strong> — Rate limit exceeded. Retry after the period shown in the header.</span>
+      </div>
+      <div class="response-item error">
+        <span class="response-code">500</span>
+        <span class="response-desc" contenteditable="true"><strong>Server Error</strong> — Something went wrong on our end. Please retry or contact support.</span>
+      </div>
+    </div>
+
+    <h3>Error Object</h3>
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">Error Response</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+      <pre contenteditable="true"><code>{
+  <span class="key">"error"</span>: {
+    <span class="key">"code"</span>: <span class="str">"validation_error"</span>,
+    <span class="key">"message"</span>: <span class="str">"The 'email' field is required."</span>,
+    <span class="key">"field"</span>: <span class="str">"email"</span>
+  }
+}</code></pre>
+    </div>
+  </section>
+
+  <!-- ── RATE LIMITS ── -->
+  <!-- <section class="doc-section" id="rate-limits">
+    <h2>Rate Limiting</h2>
+    <p contenteditable="true">
+      Requests are rate limited per API key. When a limit is exceeded, the API returns a <code>429</code> status. The following headers are included in every response:
+    </p>
+
+    <table>
+      <thead>
+        <tr><th>Header</th><th>Description</th></tr>
+      </thead>
+      <tbody id="rate-limit-headers-tbody">
+        <tr>
+          <td><span class="param-name" contenteditable="true">X-RateLimit-Limit</span></td>
+          <td contenteditable="true">Maximum requests allowed per window</td>
+        </tr>
+        <tr>
+          <td><span class="param-name" contenteditable="true">X-RateLimit-Remaining</span></td>
+          <td contenteditable="true">Requests remaining in the current window</td>
+        </tr>
+        <tr>
+          <td><span class="param-name" contenteditable="true">X-RateLimit-Reset</span></td>
+          <td contenteditable="true">Unix timestamp when the window resets</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="add-row-btn" onclick="addHeaderRow('rate-limit-headers-tbody')">+ Add Header</button>
+
+    <div class="callout warning" style="margin-top: 20px;">
+      <span class="callout-icon">⚠</span>
+      <div class="callout-body" contenteditable="true">
+        Default rate limit is <strong>1,000 requests per minute</strong>. Contact support to request a higher limit for production workloads.
+      </div>
+    </div>
+  </section> -->
+
+  <!-- ── CHANGELOG ── -->
+  <section class="doc-section" id="changelog">
+    <h2>Changelog</h2>
+    <h3>v2.0.0 — <span contenteditable="true">March 2026</span></h3>
+    <p contenteditable="true">Initial Document</p>
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════
+     SAVE BUTTON
+═══════════════════════════════════════ -->
+<button class="save-btn" onclick="saveDocument()">
+  <span class="save-icon">💾</span>
+  Save & Download
+</button>
+
+<script>
+  // ── Smooth nav highlighting ──
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-link[href^="#"]');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -65% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // ── Nav click scroll ──
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ── Copy button ──
+  function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1800);
+    });
+  }
+
+  // ── Add parameter row ──
+  function addParamRow(tbodyId, defaultBadge = 'optional') {
+    const tbody = document.getElementById(tbodyId);
+    const newRow = document.createElement('tr');
+    const badgeClass = defaultBadge === 'required' ? 'required-badge' : 'optional-badge';
+    
+    newRow.innerHTML = `
+      <td><span class="param-name" contenteditable="true">param_name</span></td>
+      <td><span class="param-type" contenteditable="true">string</span></td>
+      <td><span class="${badgeClass}" contenteditable="true">${defaultBadge}</span></td>
+      <td contenteditable="true">Description of the parameter</td>
+    `;
+    
+    tbody.appendChild(newRow);
+    
+    // Focus on the first editable field
+    const firstField = newRow.querySelector('.param-name');
+    firstField.focus();
+    
+    // Select all text for easy replacement
+    const range = document.createRange();
+    range.selectNodeContents(firstField);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
+
+  // ── Add header row (2 columns) ──
+  function addHeaderRow(tbodyId) {
+    const tbody = document.getElementById(tbodyId);
+    const newRow = document.createElement('tr');
+    
+    newRow.innerHTML = `
+      <td><span class="param-name" contenteditable="true">Header-Name</span></td>
+      <td contenteditable="true">Description of the header</td>
+    `;
+    
+    tbody.appendChild(newRow);
+    
+    // Focus on the first editable field
+    const firstField = newRow.querySelector('.param-name');
+    firstField.focus();
+    
+    // Select all text for easy replacement
+    const range = document.createRange();
+    range.selectNodeContents(firstField);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
+
+  // ── Handle Enter key in contenteditable pre blocks ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const editablePres = document.querySelectorAll('pre[contenteditable="true"]');
+    
+    editablePres.forEach(pre => {
+      pre.addEventListener('keydown', (e) => {
+        // Allow normal Enter behavior for line breaks
+        if (e.key === 'Enter' && !e.shiftKey) {
+          // Let the default behavior happen (insert line break)
+          return true;
+        }
+      });
+    });
+  });
+
+  // ── Save and download the edited document ──
+  function saveDocument() {
+    // Clone the entire document
+    const docClone = document.documentElement.cloneNode(true);
+    
+    // Remove the save button from the clone
+    const saveBtn = docClone.querySelector('.save-btn');
+    if (saveBtn) saveBtn.remove();
+    
+    // Remove the edit hint from the clone
+    const editHint = docClone.querySelector('.edit-hint');
+    if (editHint) editHint.remove();
+    
+    // Remove all add-row buttons from the clone
+    const addBtns = docClone.querySelectorAll('.add-row-btn');
+    addBtns.forEach(btn => btn.remove());
+    
+    // Get the full HTML
+    const htmlContent = '<!DOCTYPE html>\n' + docClone.outerHTML;
+    
+    // Create a blob and download
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'api-documentation-edited.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    // Show feedback
+    const btn = document.querySelector('.save-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="save-icon">✓</span> Saved!';
+    btn.style.background = '#2d6a4f';
+    
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.style.background = '';
+    }, 2000);
+  }
+</script>
+
+</body>
+</html>
